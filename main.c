@@ -1,12 +1,7 @@
 /* wspomaganie organizacji konferencji*/
 #include<stdio.h>
 #include<string.h> 
-
-void ClearScreen(){
-	printf("\033[2J");
-	printf("\033[0;0f"); 
-}
-
+#include "main.h"
  
 int main(){
 	
