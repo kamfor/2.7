@@ -4,7 +4,24 @@ void ClearScreen(){
 }
 
 void AddNewPresenter(){
+	char *buff; 
+	Presenter temp; 
 
+	printf("Wpisz imie prezentera\n");
+	scanf("%s", &buff); 
+	if(StringCheck(bufor)==1)strcpy(temp.name, buff); 
+	else printf("bledne imie\n"); 
+
+	printf("Wpisz nazwisko prezentera\n");
+	scanf("%s", &buff); 
+	if(StringCheck(bufor)==2)strcpy(temp.surname, buff); 
+	else printf("bledne nazwisko\n"); 	
+
+	printf("Wpisz afiliacje prezentera\n");
+	scanf("%s", &buff); 
+	if(StringCheck(bufor)==3)strcpy(temp.afiliation, buff); 
+	else printf("bledna afiliacje\n"); 		
+	
 }
 
 void AddNewPresentation(){

@@ -2,24 +2,40 @@
 #include<stdio.h>
 #include<string.h> 
 #include "main.h"
+#include "functions.h"
+
  
 int main(){
+
+	int control=1; 
 	
-	ClearScreen(); 
+	while(control){ //aby wyjsc wpisz 0
+	
+		ClearScreen();
 
-	int zmienn; 
+		printf("---------------------------------------------------------------------------------\n");
+		printf("-----------------------WSPOMAGANIE ORGANIZACJI KONFERENCJI-----------------------\n");
+		printf("---------------------------------------------------------------------------------\n");
 
-	printf("---------------------------------------------------------------------------------\n");
-	printf("-----------------------WSPOMAGANIE ORGANIZACJI KONFERENCJI-----------------------\n");
-	printf("---------------------------------------------------------------------------------\n");
+		PrintMenu(); 
+		
+		scanf("%d",&control);
 
-	scanf("%d",&zmienn); 
-	ClearScreen(); 
+		switch(control){
+		
+		case 1:
+		
+			AddNewPresenter(); 
 
-	printf("---------------------------------------------------------------------------------\n");
-	printf("-----------------------WSPOMAGANIE ORGANIZACJI KONFERENCJI-----------------------\n");
-	printf("---------------------------------------------------------------------------------\n");
+		break; 
+		
+		default:
+			
+			printf("podaj wartosc\n"); 
 
-
+		
+		}
+ 	}
+		
 	return 0; 
 }
