@@ -1,6 +1,7 @@
 #ifndef main.h
 #define main.h 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 struct Presenter{}; 
@@ -22,6 +23,9 @@ struct Presenter {
 	Presentation  **prespointer; 
 	int pn; 
 }; 
+
+Presenter *tabPr; 
+Presentetion *tabPn; 
 
 #endif
 

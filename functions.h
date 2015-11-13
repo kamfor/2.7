@@ -1,6 +1,8 @@
 #ifndef functions.h
 #define functions.h
 
+#include "main.h"
+
 void ClearScreen(); 
 void AddNewPresenter(); 
 void AddNewPresentation(); 
@@ -14,5 +16,6 @@ void PrintPResenterTable(int sortorder);
 void PrintPresenterTable(int sortorder); 
 void PrintMenu(); 
 void Exit(); 
+int StronhCheck(char * bufor); 
 
 #endif
