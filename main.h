@@ -10,24 +10,39 @@ struct Presentation{
 	int pn;
 	char name[30];  
 	char type[20];
-	Presenter *pointer; 
+	int *pointer; 
 };
 	
 	
 
-struct Presenter {
+struct Presenter{
 	char name[20]; 
 	char surname[30]; 
 	char affiliation[20]; 
 	char gen[10]; 
 	char payment[20]; 
-	Presentation  **prespointer; 
+	int PresentationCounter; 
+	int *prespointer; 
 	int pn; 
 }; 
 
+struct CatPresenter{
+	char name[20]; 
+	int *wsktab;
+
+struct CatPresentation{
+	char name[20]; 
+	int *wsktab;  
+};
+
 Presenter *tabPr; 
 Presentetion *tabPn; 
-
+CatPresenter *catPr; 
+CatPresentation *catPn; 
+int PresenterCounter; 
+int Presentation Counter; 
+int CatPresenterCounter; 
+int CatPresentationCounter; 
 #endif
 
 
