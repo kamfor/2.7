@@ -7,7 +7,8 @@
 struct Presenter{}; 
 
 struct Presentation{
-	int pn; 
+	int pn;
+	char name[30];  
 	char type[20];
 	Presenter *pointer; 
 };
