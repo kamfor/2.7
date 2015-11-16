@@ -9,7 +9,7 @@ int main(){
 
 	int control=1; 
 	
-	while(control){ //aby wyjsc wpisz 0
+	while(control){ 
 	
 		ClearScreen();
 

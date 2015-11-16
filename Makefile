@@ -1,2 +1,2 @@
-wok: main.c 
-	gcc main.c -lm -o wok -pedantic -ansi  
+compile: main.c functions.c
+	gcc main.c functions.c -lm -o start -pedantic -ansi  

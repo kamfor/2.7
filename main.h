@@ -1,48 +1,52 @@
-#ifndef main.h
-#define main.h 
+#ifndef MAIN_H_INCLUDED
+#define MAIN_H_INCLUDED
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-struct Presenter{}; 
 
-struct Presentation{
+typedef struct {
 	int pn;
 	char name[30];  
 	char type[20];
-	int *pointer; 
-};
+	int owner; 
+	int visible; 
+}Presentation;
 	
-	
-
-struct Presenter{
+typedef struct {
+	int pn; 
 	char name[20]; 
 	char surname[30]; 
 	char affiliation[20]; 
 	char gen[10]; 
-	char payment[20]; 
-	int PresentationCounter; 
-	int *prespointer; 
-	int pn; 
-}; 
+	char payment[20];
+	int presentation[20]; 
+	int nofpresentations; 
+	int visible; 
+}Presenter; 
 
-struct CatPresenter{
+typedef struct {
 	char name[20]; 
-	int *wsktab;
+	int presenters[20];
+	int amount;  
+}CatPresenter; 
 
-struct CatPresentation{
+typedef struct {
 	char name[20]; 
-	int *wsktab;  
-};
+	int presentations[20];
+	int amount;   
+}CatPresentation;
 
 Presenter *tabPr; 
-Presentetion *tabPn; 
+Presentation *tabPn; 
 CatPresenter *catPr; 
 CatPresentation *catPn; 
 int PresenterCounter; 
-int Presentation Counter; 
+int PresentationCounter; 
 int CatPresenterCounter; 
 int CatPresentationCounter; 
+
 #endif
 
 

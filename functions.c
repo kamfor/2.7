@@ -1,3 +1,5 @@
+#include "functions.h"
+
 void ClearScreen(){
 	printf("\033[2J"); 
 	printf("\033[0;0f");
@@ -5,9 +7,9 @@ void ClearScreen(){
 
 void AddNewPresenter(){
  
-	Presenter temp = (Presenter*) malloc(sizeof(Presenter)); 
+	Presenter temp;  
 	char buff[100]; 
-	int i;
+	int i,number; 
 	int j=0;  
 	
 	do{
@@ -59,30 +61,32 @@ void AddNewPresenter(){
 		printf("wpisz numer prezentacji dla prezentera 0 aby zakonczyc\n"); 
 		scanf("%s",buff);
 		if(StringCheck(buff)==8){
-			number = buff[0]; 
+			number =atoi(buff); 
 			if(number<=PresentationCounter){
-				temp->prespointer[j]=number;
+				temp.presentation[j]=number;
 				j++; 
 			}
-		}
-			
+			temp.nofpresentations = j; 
+		}		
 	}while(number!=0); 
 
-	PresenterCounter++; 
-	
 	tabPr[PresenterCounter].name = temp.name; 
 	tabPr[PresenterCounter].surname = temp.surname; 
 	tabPr[PresenterCounter].affiliation = temp.affiliation; 
 	tabPr[PresenterCounter].gen = temp.gen; 
 	tabPr[PresenterCounter].payment = temp.payment; 
-	tabPr[PresenterCounter].prespointer = temp.prespointer; 	
-			
+	tabPr[PresenterCounter].presentation = temp.prespointer; 
+	tabPr[presenterCounter].nofpresentations = temp.nofpresentations;  
+	tabPr[PresenterCounter].visible = 1; 
+
+	PresenterCounter++; 			
 }
 
 void AddNewPresentation(){
 
-	Presentation temp; 
+	Presentation temp;
 	char buff[100]; 
+	int i, number; 
 
 	do{
 		printf("Wpisz nazwe prezentacji\n");
@@ -93,23 +97,41 @@ void AddNewPresentation(){
 	}while(StringCheck(buff)!=6); 
 
 	do{
-		printf("Wpisz typ prezentacji\n");
+		printf("Wpisz typ prezentacji 1-ustna 2-plakat\n");
 		scanf("%s", &buff); 
-		if(StringCheck(buff)==7)strcpy(temp.type, buff); 
+		if(buff[0]=='1')strcpy(temp.type, "ustna"); 
+		else if(buff[0]=='2')strcopy(temp.type, "plakat"); 
 		else printf("bledny typ\n"); 
 
-	}while(StringCheck(buff)!=7); 	
+	}while(StringCheck(buff)!=4); 
 
+	do{
+		printf("wpisz numer prezentera ktory bedzie prezentowal prezentacje\n"); 
+		scanf("%s", &buff); 
+		if(StringCheck(buff)==8){
+			number  = atoi(buff); 
+			if(number<=PresenterCounter)temp.owner = number;
+			else printf("prezenter o podanym numerze nie istnieje\n");  
+		}
+		else(printf("blad danych\n"); 
+	}while(StringCheck(buff)!=8);
+
+
+	tabPn[PresentationCounter].name = temp.name; 
+	tabPn[PresentationCounter].type = temp.type; 
+	tabPn[PresentationCounter].owner = tepm.owner; 
+	
+
+	PresentationCounter++;
 }
 
 void CreateCatPresenter(){
 
 	char buff[100]; 
-	CatPresenter temp = (CatPresenter*)malloc(sizeof(CatPresenter)); 
+	CatPresenter temp; 
 	int number; 
 	int i; 
-	int j=0; 
-	temp->wsktab = (int*) malloc(100 * sizeof(int)); 
+	int j=0;
 	
 	do{
 		printf("Podaj nazwe katalogu prezenterow\n"); 
@@ -117,24 +139,24 @@ void CreateCatPresenter(){
 		if(StringCheck(buff)==7)strcpy(temp.name, buff); 
 		else printf("bledna nazwa\n"); 
 	}while(StringCheck(buff)!=7);
- 
-	free(buff); 
 
 	do{
-		printf("Wpisz numer porzadkowy prezentera ktorego chcesz dodac do bazy (0 aby zakonczyc)\n"); 
+		printf("Wpisz numer porzadkowy prezentera ktorego chcesz dodac do katalogu (q aby zakonczyc)\n"); 
 		scanf("%s", &buff); 
 		if(stringcheck(buff)==8){
-			number = buff[0]; 
-			for(i=0; i<sizeof(tabPr);i++){
-				if(tabPr[i].pn==number){
-					temp->wsktab[j] = number; 
-					j++;
-				}		
-			}	
+			number = atoi(buff); 
+			if(number<=PresenterCounter){
+				temp.presenters[j] = number; 
+				j++;
+			}
+			temp.amount = j; 			
 		}
-	}while(number!=0); 
+	}while(buff[0]=!''q'); 
 
-	
+	CatPresenter[CatPresenterCounter].name = temp.name; 
+	CatPresenter[CatPresenterCounter].preesnters = temp.presenters; 
+	CatPresenter[CatPresenterCounter].amount = temp.amount;  
+
 
 	printf("Dodano %d elementow do katalogu",j); 
 
@@ -143,11 +165,10 @@ void CreateCatPresenter(){
 void CreateCatPresentation(){
 
 	char buff[100]; 
-	CatPresentation temp = (CatPresentation*)malloc(sizeof(CatPresentation)); 
+	CatPresentation temp; 
 	int number; 
 	int i; 
 	int j=0; 
-	temp->wsktab = (int*) malloc(100 * sizeof(int)); 
 	
 	do{
 		printf("Podaj nazwe katalogu prezentacji\n"); 
@@ -156,32 +177,67 @@ void CreateCatPresentation(){
 		else printf("bledna nazwa\n"); 
 	}while(StringCheck(buff)!=7);
  
-	free(buff); 
-
 	do{
-		printf("Wpisz numer porzadkowy prezentacji ktora chcesz dodac do bazy (0 aby zakonczyc)\n"); 
+		printf("Wpisz numer porzadkowy prezentacji ktora chcesz dodac do katalogu (q aby zakonczyc)\n"); 
 		scanf("%s", &buff); 
-		if(stringcheck(buff)==8){
-			number = buff[0]; 
-			for(i=0; i<sizeof(tabPr);i++){
-				if(tabPn[i].pn==number){
-					temp->wsktab[j] = number; 
-					j++;
-				}		
-			}	
+		if(stringCheck(buff)==8){
+			number = atoi(buff); 
+			if(number<=PresntationCounter){
+				temp.presentations[j] = number; 
+				j++;
+			}
+			temp.amount = j; 			
 		}
 	}while(number!=0); 
 
-	printf("Dodano %d elementow do katalogu",j); 
+	CatPresentations[CatPresentationsCounter].name = temp.name; 
+	CatPrentations[CatPresentationsCounter].presentations = temp.presentations; 
+	CatPrestations[CatPresentationsCounter].amount = j; 
 
+	printf("Dodano %d elementow do katalogu",j); 
 
 }
 
 void DeletePresenter(){
 
+	char buff[10];
+	int number; 
+
+	do{
+		printf("Podaj numer prezentera ktorego chcesz usunac\n"); 
+		scanf("%s",&buff); 
+		if(StringCheck(buff)==4){
+			number = atoi(buff); 
+			if(number<=PresenterCounter){
+				if(tabPr[number].visible)tabPr[number].visible = 0; 
+				else printf("element zostal juz usuniety\n"); 
+			}
+			else printf("Prezenter o podanym numerze nie istnieje\n"); 
+		}
+		else printf("bledny numer\n"); 	
+	}while(StringCheck(buff)!=4); 
+
 }
 
 void DeletePresentetion(){
+
+	char buff[10];
+	int number; 
+
+	do{
+		printf("Podaj numer prezentacji ktora chcesz usunac\n"); 
+		scanf("%s",&buff); 
+		if(StringCheck(buff)==4){
+			number = atoi(buff); 
+			if(number<=PresentationCounter){
+				if(tabPn[number].visible)tabPn[number].visible = 0; 
+				else printf("element zostal juz usuniety\n"); 
+			}
+			else printf("Prezentacja o podanym numerze nie istnieje\n"); 
+		}
+		else printf("bledny numer\n"); 	
+	}while(StringCheck(buff)!=4); 
+
 
 }
 

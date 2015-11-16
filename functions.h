@@ -1,5 +1,5 @@
-#ifndef functions.h
-#define functions.h
+#ifndef FUNCTIONS_H_DEFINED
+#define FUNCTIONS_H_DEFINED
 
 #include "main.h"
 
@@ -8,14 +8,14 @@ void AddNewPresenter();
 void AddNewPresentation(); 
 void CreateCatPresenter(); 
 void CreateCatPresentation(); 
-void Delete Presenter(); 
+void DeletePresenter(); 
 void DeletePresentation(); 
 void UpdatePresenter(); 
 void UpdatePresentation();
-void PrintPResenterTable(int sortorder); 
-void PrintPresenterTable(int sortorder); 
+void PrintPResenterTable(int); 
+void PrintPresenterTable(int); 
 void PrintMenu(); 
 void Exit(); 
-int StronhCheck(char * bufor); 
+int StronhCheck(char*); 
 
 #endif
