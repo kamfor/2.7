@@ -82,6 +82,14 @@ int main(){
 		case 10: 
 			ClearScreen();
 			printf("Katalogi prezentacji\n"); 
+		break; 
+		case 11:
+			ClearScreen(); 
+			UpdatePresenter(); 
+		break; 
+		case 12:
+			ClearScreen(); 
+			UpdatePresentation(); 
 		break; 		
 		default:
 			printf("podaj wartosc\n"); 
