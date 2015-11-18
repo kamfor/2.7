@@ -46,7 +46,7 @@ int PresenterCounter;
 int PresentationCounter; 
 int CatPresenterCounter; 
 int CatPresentationCounter; 
-
+char buff[100];
 #endif
 
 

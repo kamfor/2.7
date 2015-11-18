@@ -12,10 +12,12 @@ void DeletePresenter();
 void DeletePresentation(); 
 void UpdatePresenter(); 
 void UpdatePresentation();
-void PrintPResenterTable(int); 
 void PrintPresenterTable(int); 
+void PrintPresentationTable(int);
+void PrintCatPresenter(); 
+void PrintCatPresentation();  
 void PrintMenu(); 
 void Exit(); 
-int StronhCheck(char*); 
+int StringhiCheck(char*); 
 
 #endif
