@@ -340,7 +340,15 @@ void UpdatePresentation(){
 						if(buff[0]=='1')strcpy(temp.type, "ustna"); 
 						else if(buff[0]=='2')strcpy(temp.type, "plakat"); 
 						else printf("bledny typ\n"); 
-					}while(StringCheck(buff)!=3); 
+	printf("| id | nazwa  |   typ    |id  prezentujacego |\n");
+	for(i=0; i<PresentationCounter; i++){
+		if(tabPn[i].visible){
+			printf("---------------------------------------------|\n");
+			printf("|%4d|%8s|%10s|%18d|",tabPn[i].pn,tabPn[i].name,tabPn[i].type,tabPn[i].owner);
+		}
+	}
+	printf("|--------------------------------------------|\n");
+				}while(StringCheck(buff)!=3); 
 
 					do{
 					printf("wpisz numer prezentera ktory bedzie prezentowal prezentacje\n"); 
@@ -367,13 +375,18 @@ void UpdatePresentation(){
 
 void PrintPresenterTable(int sortorder){
 	int i,j; 
+	int *tab = malloc(PresenterCounter *sizeof(int)); 
+	
+	for(i=0; i<PresenterCounter; i++)tab[i]=i;
+	
+	if(sortorder==1)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterName); 
 
 	printf("| id |    imie    |  nazwisko  | afiliacja |typ wystapienia|status platnosci|numery prezentacji|\n");
 	for(i=0; i<PresenterCounter; i++){
-	if(tabPr[i].visible){
+	if(tabPr[tab[i]].visible){
 	printf("-----------------------------------------------------------------------------------------------|\n");
-	printf("|%4d|%12s|%12s|%11s|",tabPr[i].pn,tabPr[i].name,tabPr[i].surname,tabPr[i].affiliation);
-	printf("%15s|%16s|%18d|\n",tabPr[i].gen,tabPr[i].payment,tabPr[i].nofpresentations); 
+	printf("|%4d|%12s|%12s|%11s|",tabPr[tab[i]].pn,tabPr[tab[i]].name,tabPr[tab[i]].surname,tabPr[tab[i]].affiliation);
+	printf("%15s|%16s|%18d|\n",tabPr[tab[i]].gen,tabPr[tab[i]].payment,tabPr[tab[i]].nofpresentations); 
 	}
 	}
 	printf("|----------------------------------------------------------------------------------------------|\n");
@@ -455,5 +468,63 @@ int StringCheck(char *bufor){
 
 	return result; 
 
+}
+
+int ComparePresenterName (const void * a, const void * b){
+
+	int x = *(int*)a;
+	int y = *(int*)b;
+	return strcmp(tabPr[x].name,tabPr[y].name); 
+}
+
+int ComparePresenterSurname (const void * a, const void * b){
+
+	int x = *(int*)a;
+	int y = *(int*)b;
+	return strcmp(tabPr[x].surname,tabPr[y].surname); 
+}
+
+int ComparePresenterAffiliation (const void * a, const void * b){
+
+	int x = *(int*)a;
+	int y = *(int*)b;
+	return strcmp(tabPr[x].affiliation,tabPr[y].affiliation); 
+}
+
+int ComparePresenterGen (const void * a, const void * b){
+
+	int x = *(int*)a;
+	int y = *(int*)b;
+	return strcmp(tabPr[x].gen,tabPr[y].gen); 
+}
+
+int ComparePresenterPayment (const void * a, const void * b){
+
+	int x = *(int*)a;
+	int y = *(int*)b;
+	return strcmp(tabPr[x].payment,tabPr[y].payment); 	 
+}
+
+int ComparePresenterPresentations (const void * a, const void * b){
+
+	int x = *(int*)a;
+	int y = *(int*)b;
+	if(tabPr[x].nofpresentations>tabPr[y].nofpresentations) return 1; 
+	else if (tabPr[x].nofpresentations==tabPr[y].nofpresentations) return 0; 
+	else return 0; 
+}
+
+int ComparePresentationName (const void * a, const void * b){
+
+	int x = *(int*)a;
+	int y = *(int*)b;
+	return strcmp(tabPn[x].name,tabPn[y].name); 
+}
+
+int ComparePresentationType (const void * a, const void * b){
+
+	int x = *(int*)a;
+	int y = *(int*)b;
+	return strcmp(tabPn[x].type,tabPn[y].type); 
 }
 

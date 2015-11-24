@@ -19,5 +19,5 @@ void PrintCatPresentation();
 void PrintMenu(); 
 void Exit(); 
 int StringhiCheck(char*); 
-
+int ComparePresenterName(const void *,const void *); 
 #endif
