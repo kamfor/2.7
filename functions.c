@@ -74,27 +74,15 @@ void AddNewPresenter(){
 	
 	for(i=0; i<PresenterCounter; i++){
 		if(tabPr[i].visible==0){
-			strcpy(tabPr[i].name,temp.name);
-			strcpy(tabPr[i].affiliation,temp.affiliation);
-			strcpy(tabPr[i].surname,temp.surname);
-			strcpy(tabPr[i].gen,temp.gen);
-			strcpy(tabPr[i].payment,temp.payment);
-			for(j=0; j<20; j++)tabPr[i].presentation[j] = temp.presentation[j];	
-			tabPr[i].nofpresentations = temp.nofpresentations;  
-			tabPr[i].visible = 1; 
+			tabPr[i] = temp;
+			tabPr[i].pn = i;  
 			write = 0; 
 			break; 
 		}
 	}
 	if(write){
-		strcpy(tabPr[PresenterCounter].name,temp.name);
-		strcpy(tabPr[PresenterCounter].affiliation,temp.affiliation);
-		strcpy(tabPr[PresenterCounter].surname,temp.surname);
-		strcpy(tabPr[PresenterCounter].gen,temp.gen);
-		strcpy(tabPr[PresenterCounter].payment,temp.payment);
-		for(j=0; j<20; j++)tabPr[PresenterCounter].presentation[j] = temp.presentation[j];	
-		tabPr[PresenterCounter].nofpresentations = temp.nofpresentations;  
-		tabPr[PresenterCounter].visible = 1; 
+		tabPr[PresenterCounter] = temp;
+		tabPr[PresenterCounter].pn = PresenterCounter; 
 		PresenterCounter++; 
 	}			
 }
@@ -135,19 +123,17 @@ void AddNewPresentation(){
 
 	for(i=0; i<PresentationCounter; i++){
 		if(tabPn[i].visible==0){
-			strcpy(tabPn[i].name,temp.name); 
-			strcpy(tabPn[i].type,temp.type); 
-			tabPn[i].owner = temp.owner; 
+			tabPn[i] = temp;
 			tabPn[i].visible = 1;
+			tabPn[i].pn = i; 
 			write = 0; 
 			break; 
 		}
 	} 
 	if(write){
-		strcpy(tabPn[PresentationCounter].name,temp.name); 
-		strcpy(tabPn[PresentationCounter].type,temp.type); 
-		tabPn[PresentationCounter].owner = temp.owner; 
+		tabPn[PresentationCounter] = temp; 
 		tabPn[PresentationCounter].visible = 1;
+		tabPn[PresentationCounter].pn = PresentationCounter;
 		PresentationCounter++;
 	}
 }
@@ -179,12 +165,11 @@ void CreateCatPresenter(){
 		}
 	}while(buff[0]=!'q'); 
 
-	strcpy(catPr[CatPresenterCounter].name,temp.name); 
-	for(i=0; i<20; i++)catPr[CatPresenterCounter].presenters[i] = temp.presenters[i]; 
-	catPr[CatPresenterCounter].amount = temp.amount; 
+	catPr[CatPresenterCounter] = temp; 
 	CatPresenterCounter++;  
 
-	printf("Dodano %d elementow do katalogu\n",j); 
+	printf("Dodano %d elementow do katalogu(0 aby zakonczyc)\n",j); 
+	scanf("%d",&i); 
 }
 
 void CreateCatPresentation(){
@@ -213,10 +198,8 @@ void CreateCatPresentation(){
 			temp.amount = j; 			
 		}
 	}while(buff[0]!='q'); 
-
-	strcpy(catPn[CatPresentationCounter].name,temp.name); 
-	for(i=0; i<20; i++)catPn[CatPresentationCounter].presentations[i] = temp.presentations[i]; 
-	catPn[CatPresentationCounter].amount = temp.amount; 
+	
+	catPn[CatPresentationCounter] = temp; 
 	CatPresentationCounter++; 
 
 	printf("Dodano %d elementow do katalogu",j); 
@@ -322,14 +305,7 @@ void UpdatePresenter(){
 						}		
 					}while(nu!=0); 
 					
-					strcpy(tabPr[number].name,temp.name);
-					strcpy(tabPr[number].affiliation,temp.affiliation);
-					strcpy(tabPr[number].surname,temp.surname);
-					strcpy(tabPr[number].gen,temp.gen);
-					strcpy(tabPr[number].payment,temp.payment);
-					for(j=0; j<20; j++)
-					tabPr[number].presentation[j] = temp.presentation[j];	
-					tabPr[number].nofpresentations = temp.nofpresentations;  
+					tabPr[number] = temp; 
 					tabPr[number].visible = 1; 
 				}
 				else printf("element zostal juz usuniety\n"); 
@@ -377,9 +353,7 @@ void UpdatePresentation(){
 					else printf("blad danych\n"); 
 					}while(temp.owner!=nu);
 
-					strcpy(tabPn[number].name,temp.name); 
-					strcpy(tabPn[number].type,temp.type); 
-					tabPn[number].owner = temp.owner; 
+					tabPn[number] = temp;
 					tabPn[number].visible = 1;
 				}				
 				else printf("element zostal juz usuniety\n"); 
@@ -407,7 +381,16 @@ void PrintPresenterTable(int sortorder){
 }
 
 void PrintPresentationTable(int sortorder){
+	int i,j; 
 
+	printf("| id | nazwa  |   typ    |id  prezentujacego |\n");
+	for(i=0; i<PresentationCounter; i++){
+		if(tabPn[i].visible){
+			printf("|--------------------------------------------|\n");
+			printf("|%4d|%8s|%10s|%18d|",tabPn[i].pn,tabPn[i].name,tabPn[i].type,tabPn[i].owner);
+		}
+	}
+	printf("|--------------------------------------------|\n");
 }
 
 void PrintMenu(){
@@ -425,11 +408,30 @@ void PrintMenu(){
 }
 
 void PrintCatPresenter(){
-
+	int i,j; 
+	printf("|     nazwa     | numery prezenterow |\n");
+	for(i=0; i<CatPresenterCounter; i++){
+		printf("|------------------------------------|\n");
+		printf("|%15s|%20d|\n",catPr[i].name,catPr[i].presenters[0]);
+		for(j=1; j<catPr[i].amount; j++){
+		printf("|                |%20d|\n",catPr[i].presenters[j]); 
+		}
+	}
+	printf("|------------------------------------|\n");
+	scanf("%d",&i); 
 }
 
 void PrintCatPresentation(){
-
+	int i,j; 
+	printf("|     nazwa     | numery prezentacji |\n");
+	for(i=0; i<CatPresentationCounter; i++){
+		printf("|---------------------------------|\n");
+		printf("|%16s|%20d|",catPn[i].name,catPn[i].presentations[0]);
+		for(j=1; j<catPn[i].amount; j++){
+		printf("|                |%20d|\n",catPn[i].presentations[j]); 
+		}
+	}
+	printf("|----------------------------------|\n");
 }
 
 void Exit(){

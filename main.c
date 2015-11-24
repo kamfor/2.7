@@ -72,16 +72,18 @@ int main(){
 				printf("1 wg nazwy; 2 wg typu\n");
 				scanf("%d", &sortorder); 
 				ClearScreen(); 
-				PrintPresenterTable(sortorder);
+				PrintPresentationTable(sortorder);
 			}
 		break; 
 		case 9:
 			ClearScreen();
-			printf("Katalogi prezenterow\n"); 
+			printf("Katalogi prezenterow\n");
+			PrintCatPresenter();  
 		break; 
 		case 10: 
 			ClearScreen();
 			printf("Katalogi prezentacji\n"); 
+			PrintCatPresentation(); 
 		break; 
 		case 11:
 			ClearScreen(); 
