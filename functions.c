@@ -40,7 +40,7 @@ void AddNewPresenter(){
 	}while(StringCheck(buff)==0); 
 
 	do{
-		printf("Poadj rodzaj wystapienia 1-brak 2-ustne 3-plakat\n");
+		printf("Poadj rodzaj wystapienia (1-brak 2-ustne 3-plakat)\n");
 		scanf("%s", &buff); 
 		if(buff[0]=='1')strcpy(temp.gen,"brak"); 
 		else if(buff[0]=='2')strcpy(temp.gen,"ustne"); 
@@ -58,8 +58,8 @@ void AddNewPresenter(){
 		
 	}while(!(buff[0]=='1' || buff[0]=='0')); 
 
-	do{
-		printf("wpisz numer prezentacji dla prezentera 0 aby zakonczyc\n"); 
+	/*do{
+		printf("Wpisz numer prezentacji dla prezentera 0 aby zakonczyc\n"); 
 		scanf("%s",buff);
 		if(StringCheck(buff)==3){
 			number = atoi(buff); 
@@ -70,7 +70,7 @@ void AddNewPresenter(){
 			else printf("prezentacja nie istnieje\n"); 
 			temp.nofpresentations = j; 
 		}		
-	}while(number!=0); 
+	}while(number!=0); */
 	
 	for(i=0; i<PresenterCounter; i++){
 		if(tabPr[i].visible==0){
@@ -82,9 +82,13 @@ void AddNewPresenter(){
 	}
 	if(write){
 		tabPr[PresenterCounter] = temp;
-		tabPr[PresenterCounter].pn = PresenterCounter; 
+		tabPr[PresenterCounter].pn = PresenterCounter;
+		printf("Dodano prezentera o numerze id = %d (wpisz 0 aby wrococ do menu) \n", PresenterCounter); 
 		PresenterCounter++; 
-	}			
+	}
+	else
+		printf("Dodano prezentera o numerze id = %d (wpisz 0 aby wrococ do menu) \n", i);
+	scanf("%d",&i); 		
 }
 
 void AddNewPresentation(){
@@ -111,12 +115,16 @@ void AddNewPresentation(){
 	}while(StringCheck(buff)!=3); 
 
 	do{
-		printf("wpisz numer prezentera ktory bedzie prezentowal prezentacje\n"); 
+		printf("Wpisz numer prezentera ktory bedzie prezentowal prezentacje\n"); 
 		scanf("%s", &buff); 
 		if(StringCheck(buff)==3){
 			number = atoi(buff); 
-			if(number<=PresenterCounter&&tabPr[number].visible)temp.owner = number;
-			else printf("prezenter o podanym numerze nie istnieje\n");  
+			if(number<=PresenterCounter&&tabPr[number].visible){
+				temp.owner = number;
+				tabPr[number].presentation[tabPr[number].nofpresentations]=number; 
+				tabPr[number].nofpresentations++; 
+			}
+			else printf("Prezenter o podanym numerze nie istnieje\n");  
 		}
 		else printf("blad danych\n"); 
 	}while(temp.owner!=number);
@@ -134,8 +142,12 @@ void AddNewPresentation(){
 		tabPn[PresentationCounter] = temp; 
 		tabPn[PresentationCounter].visible = 1;
 		tabPn[PresentationCounter].pn = PresentationCounter;
+		printf("Dodano prezentacje o numerze %d (wpisz zero aby wrococ do menu)\n",PresentationCounter);
 		PresentationCounter++;
 	}
+	else
+		printf("Dodano prezentacje o numerze %d (wpisz 0 aby wrococ do menu)\n",i); 
+	scanf("%d",&i); 
 }
 
 void CreateCatPresenter(){
@@ -157,10 +169,11 @@ void CreateCatPresenter(){
 		scanf("%s", &buff); 
 		if(StringCheck(buff)==3){
 			number = atoi(buff); 
-			if(number<=PresenterCounter){
+			if(number<=PresenterCounter&&tabPr[number].visible){
 				temp.presenters[j] = number; 
 				j++;
 			}
+			else printf("Prezenter o podanym numerze nie istnieje\n"); 
 			temp.amount = j; 			
 		}
 	}while(buff[0]=!'q'); 
@@ -168,7 +181,7 @@ void CreateCatPresenter(){
 	catPr[CatPresenterCounter] = temp; 
 	CatPresenterCounter++;  
 
-	printf("Dodano %d elementow do katalogu(0 aby zakonczyc)\n",j); 
+	printf("Dodano %d elementow do katalogu (0 aby wrocic do menu)\n",j); 
 	scanf("%d",&i); 
 }
 
@@ -195,6 +208,7 @@ void CreateCatPresentation(){
 				temp.presentations[j] = number; 
 				j++;
 			}
+			else printf("Prezentacja o podanym numerze nie istnieje\n"); 
 			temp.amount = j; 			
 		}
 	}while(buff[0]!='q'); 
@@ -202,8 +216,8 @@ void CreateCatPresentation(){
 	catPn[CatPresentationCounter] = temp; 
 	CatPresentationCounter++; 
 
-	printf("Dodano %d elementow do katalogu",j); 
-
+	printf("Dodano %d elementow do katalogu (0 aby wrocic do menu)\n",j); 
+	scanf("%d",&j);
 }
 
 void DeletePresenter(){
@@ -222,6 +236,8 @@ void DeletePresenter(){
 		}
 		else printf("bledny numer\n"); 	
 	}while(StringCheck(buff)!=3); 
+	printf("Usunieto prezentera o numerze %d ( Wpisz 0 aby wrococ do menu )\n",number);
+	scanf("%d",&number); 
 
 }
 
@@ -241,6 +257,9 @@ void DeletePresentation(){
 		}
 		else printf("bledny numer\n"); 	
 	}while(StringCheck(buff)!=3); 
+	printf("Usunieto prezentacje o numerze %d ( Wpisz 0 aby wrococ do menu )\n",number);
+	scanf("%d",&number); 
+
 }
 
 void UpdatePresenter(){
@@ -291,7 +310,7 @@ void UpdatePresenter(){
 						else printf("bledny status platnosci\n");
 					}while(!(buff[0]=='1' || buff[0]=='0')); 
 
-					do{
+					/*do{
 						printf("wpisz numer prezentacji prezentera (0 aby zakonczyc)\n"); 
 						scanf("%s",buff);
 						if(StringCheck(buff)==3){
@@ -303,7 +322,7 @@ void UpdatePresenter(){
 						else printf("prezentacja nie istnieje\n"); 
 						temp.nofpresentations = j; 
 						}		
-					}while(nu!=0); 
+					}while(nu!=0); */
 					
 					tabPr[number] = temp; 
 					tabPr[number].visible = 1; 
@@ -313,7 +332,9 @@ void UpdatePresenter(){
 			else printf("Prezenter o podanym numerze nie istnieje\n"); 
 		}
 		else printf("bledny numer\n"); 	
-	}while(StringCheck(buff)!=3); 	
+	}while(StringCheck(buff)!=3);
+	printf("Edytowano prezentera o numerze %d ( Wpisz 0 aby wrococ do menu )\n",number);
+	scanf("%d",&number); 
 }
 
 void UpdatePresentation(){
@@ -340,25 +361,21 @@ void UpdatePresentation(){
 						if(buff[0]=='1')strcpy(temp.type, "ustna"); 
 						else if(buff[0]=='2')strcpy(temp.type, "plakat"); 
 						else printf("bledny typ\n"); 
-	printf("| id | nazwa  |   typ    |id  prezentujacego |\n");
-	for(i=0; i<PresentationCounter; i++){
-		if(tabPn[i].visible){
-			printf("---------------------------------------------|\n");
-			printf("|%4d|%8s|%10s|%18d|",tabPn[i].pn,tabPn[i].name,tabPn[i].type,tabPn[i].owner);
-		}
-	}
-	printf("|--------------------------------------------|\n");
-				}while(StringCheck(buff)!=3); 
+					}while(StringCheck(buff)!=3); 
 
 					do{
-					printf("wpisz numer prezentera ktory bedzie prezentowal prezentacje\n"); 
-					scanf("%s", &buff); 
-					if(StringCheck(buff)==3){
-						nu = atoi(buff); 
-					if(nu<=PresenterCounter&&tabPr[nu].visible)temp.owner = nu;
-					else printf("prezenter o podanym numerze nie istnieje\n");  
-					}
-					else printf("blad danych\n"); 
+						printf("wpisz numer prezentera ktory zaprezentuje prezentacje\n");
+						scanf("%s", &buff); 
+						if(StringCheck(buff)==3){
+							nu = atoi(buff); 
+							if(nu<=PresenterCounter&&tabPr[nu].visible){
+							temp.owner = nu;
+							tabPr[nu].presentation[tabPr[nu].nofpresentations]=nu; 
+							tabPr[nu].nofpresentations++; 
+							}
+							else printf("prezenter o podanym numerze nie istnieje\n");  
+						}
+						else printf("blad danych\n"); 
 					}while(temp.owner!=nu);
 
 					tabPn[number] = temp;
@@ -370,7 +387,8 @@ void UpdatePresentation(){
 		}
 		else printf("bledny numer\n"); 	
 	}while(StringCheck(buff)!=3); 
-
+	printf("Edytowano prezentacje o numerze %d ( Wpisz 0 aby wrococ do menu )\n",number);
+	scanf("%d",&number); 
 }
 
 void PrintPresenterTable(int sortorder){
@@ -379,7 +397,13 @@ void PrintPresenterTable(int sortorder){
 	
 	for(i=0; i<PresenterCounter; i++)tab[i]=i;
 	
-	if(sortorder==1)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterName); 
+	if(sortorder==1)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterName);
+	if(sortorder==2)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterSurname);
+	if(sortorder==3)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterAffiliation); 
+	if(sortorder==4)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterGen); 
+	if(sortorder==5)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterPayment);
+	if(sortorder==6)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterPresentations);
+
 
 	printf("| id |    imie    |  nazwisko  | afiliacja |typ wystapienia|status platnosci|numery prezentacji|\n");
 	for(i=0; i<PresenterCounter; i++){
@@ -395,6 +419,11 @@ void PrintPresenterTable(int sortorder){
 
 void PrintPresentationTable(int sortorder){
 	int i,j; 
+	int *tab = malloc(PresentationCounter *sizeof(int)); 
+
+	for(i=0; i<PresentationCounter; i++)tab[i]=i;
+	if(sortorder==1)qsort(tab,PresentationCounter,sizeof(int),ComparePresentationName);
+	if(sortorder==2)qsort(tab,PresentationCounter,sizeof(int),ComparePresentationType);	
 
 	printf("| id | nazwa  |   typ    |id  prezentujacego |\n");
 	for(i=0; i<PresentationCounter; i++){
@@ -417,6 +446,7 @@ void PrintMenu(){
 	printf("-Wpisz 4 aby usunac prezentacje        - wpisz 9 aby wyswietlic liste katal. prezenterow-\n"); 
 	printf("-Wpisz 5 aby dodac katalog prezenterow - wpisz 10 aby wyswietic liste katal. prezentacji-\n");
 	printf("-Wpisz 11 aby edytowac prezentera      - wpisz 12 aby edytowac prezentacje              -\n");
+	printf("---------------------------------------- wpisz 0 aby zakonczyc                          -\n");
 	printf("-----------------------------------------------------------------------------------------\n");
 }
 
@@ -447,11 +477,21 @@ void PrintCatPresentation(){
 	printf("|----------------------------------|\n");
 }
 
-void Exit(){
+int Exit(){
+	do{
+		char buff[10];
+		printf("Czy na pewno chcesz zakonczyc (Wpisz TAK lub NIE\n"); 
+		scanf("%s",&buff); 
+		if(strcmp(buff,"NIE"))return 0; 
+		
+	}while(strcmp(buff,"TAK"));
+
 	free(tabPr); 
 	free(tabPn); 
 	free(catPr); 
 	free(catPn); 
+	
+	return 1; 
 }
 
 int StringCheck(char *bufor){

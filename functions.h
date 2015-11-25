@@ -17,7 +17,15 @@ void PrintPresentationTable(int);
 void PrintCatPresenter(); 
 void PrintCatPresentation();  
 void PrintMenu(); 
-void Exit(); 
+int Exit(); 
 int StringhiCheck(char*); 
 int ComparePresenterName(const void *,const void *); 
+int ComparePresenterSurname(const void *,const void *); 
+int ComparePresenterAffiliation(const void *,const void *); 
+int ComparePresenterGen(const void *,const void *); 
+int ComparePresenterPayment(const void *,const void *); 
+int ComparePresenterPresentations(const void *,const void *); 
+int ComparePresentationName(const void *,const void *); 
+int ComparePresentationType(const void *,const void *); 
+
 #endif

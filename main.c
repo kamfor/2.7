@@ -11,10 +11,10 @@ int main(){
 	int sortorder = 1; 
 	int actmem[] = {20,20,10,10};
 	void *tmp; 
-	tabPr = malloc(sizeof(Presenter) * actmem[0]); 
-	tabPn = malloc(sizeof(Presentation) * actmem[1]); 
-	catPr = malloc(sizeof(CatPresenter) * actmem[2]); 
-	catPn = malloc(sizeof(CatPresentation) * actmem[3]);  
+	tabPr = calloc(actmem[0], sizeof(Presenter)); 
+	tabPn = calloc(actmem[1], sizeof(Presentation)); 
+	catPr = calloc(actmem[2], sizeof(CatPresenter)); 
+	catPn = calloc(actmem[3], sizeof(CatPresentation));  
 
 	ClearScreen(); 
 	
@@ -26,8 +26,7 @@ int main(){
 
 		switch(control){
 		case 0:
-			Exit();
-			return 0; 
+			if(Exit())return 0; 
 		break; 	
 		case 1:
 			ClearScreen(); 
@@ -70,6 +69,7 @@ int main(){
 			while(sortorder){
 				printf("wpisz porzadek sortowania\n");
 				printf("1 wg nazwy; 2 wg typu\n");
+				printf("Wpisz 0 aby zakonczyc\n");
 				scanf("%d", &sortorder); 
 				ClearScreen(); 
 				PrintPresentationTable(sortorder);
