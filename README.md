@@ -1,7 +1,7 @@
 # 2.7
 ##Wspomaganie organizacji konferencji
 Program pozwala na dodawanie i edycje danych o prezenterach i prezentacjach. Dane przechowywane sa w tablicach struktur o nastepujacej budowie:
->Prezenter<
+Prezenter
 ```C
 typedef struct {
 	int pn; // liczba porzadkowa
