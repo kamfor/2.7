@@ -7,16 +7,17 @@ void ClearScreen(){
 }
 
 void AddNewPresenter(){
- 
-	Presenter temp;   
+
 	int i,number; 
 	int j=0;  
-	int write=1; 
-	
+	int write=1;  
+	Presenter *temp;
+	temp = calloc(1,sizeof(Presenter));   
+
 	do{
 		printf("Wpisz imie prezentera\n");
 		scanf("%s", &buff); 
-		if(StringCheck(buff)==2)strcpy(temp.name, buff); 
+		if(StringCheck(buff)==2)strcpy(temp->name, buff); 
 		else printf("bledne imie\n"); 
 
 	}while(StringCheck(buff)!=2); 
@@ -25,7 +26,7 @@ void AddNewPresenter(){
 
 		printf("Wpisz nazwisko prezentera\n");
 		scanf("%s", &buff); 
-		if(StringCheck(buff)==2)strcpy(temp.surname, buff); 
+		if(StringCheck(buff)==2)strcpy(temp->surname, buff); 
 		else printf("bledne nazwisko\n"); 
 
 	}while(StringCheck(buff)!=2); 	
@@ -34,7 +35,7 @@ void AddNewPresenter(){
 
 		printf("Wpisz afiliacje prezentera\n");
 		scanf("%s", &buff); 
-		if(StringCheck(buff))strcpy(temp.affiliation, buff); 
+		if(StringCheck(buff))strcpy(temp->affiliation, buff); 
 		else printf("bledna afiliacje\n");		
 	
 	}while(StringCheck(buff)==0); 
@@ -42,9 +43,9 @@ void AddNewPresenter(){
 	do{
 		printf("Poadj rodzaj wystapienia (1-brak 2-ustne 3-plakat)\n");
 		scanf("%s", &buff); 
-		if(buff[0]=='1')strcpy(temp.gen,"brak"); 
-		else if(buff[0]=='2')strcpy(temp.gen,"ustne"); 
-		else if(buff[0]=='3')strcpy(temp.gen,"plakat");  
+		if(buff[0]=='1')strcpy(temp->gen,"brak"); 
+		else if(buff[0]=='2')strcpy(temp->gen,"ustne"); 
+		else if(buff[0]=='3')strcpy(temp->gen,"plakat");  
 		else printf("bledny rodzaj wystapienia\n");
 	
 	}while(StringCheck(buff)!=3); 
@@ -52,8 +53,8 @@ void AddNewPresenter(){
 	do{
 		printf("Wpisz status platnosci(0 - brak 1 - zaplacono)\n");
 		scanf("%s", &buff); 
-		if(buff[0]=='0')strcpy(temp.payment,"nie zaplacono");
-		else if(buff[0]=='1')strcpy(temp.payment,"zaplacono");  
+		if(buff[0]=='0')strcpy(temp->payment,"nie zaplacono");
+		else if(buff[0]=='1')strcpy(temp->payment,"zaplacono");  
 		else printf("bledny status platnosci\n");
 		
 	}while(!(buff[0]=='1' || buff[0]=='0')); 
@@ -66,29 +67,32 @@ void AddNewPresenter(){
 			if(number<=PresentationCounter){
 				temp.presentation[j]=number;
 				j++; 
+
 			}
 			else printf("prezentacja nie istnieje\n"); 
 			temp.nofpresentations = j; 
 		}		
 	}while(number!=0); */
+
+	temp->visible = 1; 
 	
 	for(i=0; i<PresenterCounter; i++){
 		if(tabPr[i].visible==0){
-			tabPr[i] = temp;
+			tabPr[i] = *temp;
 			tabPr[i].pn = i;  
 			write = 0; 
 			break; 
 		}
 	}
 	if(write){
-		tabPr[PresenterCounter] = temp;
+		tabPr[PresenterCounter] = *temp;
 		tabPr[PresenterCounter].pn = PresenterCounter;
 		printf("Dodano prezentera o numerze id = %d (wpisz 0 aby wrococ do menu) \n", PresenterCounter); 
 		PresenterCounter++; 
 	}
 	else
 		printf("Dodano prezentera o numerze id = %d (wpisz 0 aby wrococ do menu) \n", i);
-	scanf("%d",&i); 		
+	scanf("%s",&buff); 		
 }
 
 void AddNewPresentation(){
@@ -121,8 +125,6 @@ void AddNewPresentation(){
 			number = atoi(buff); 
 			if(number<=PresenterCounter&&tabPr[number].visible){
 				temp.owner = number;
-				tabPr[number].presentation[tabPr[number].nofpresentations]=number; 
-				tabPr[number].nofpresentations++; 
 			}
 			else printf("Prezenter o podanym numerze nie istnieje\n");  
 		}
@@ -135,6 +137,9 @@ void AddNewPresentation(){
 			tabPn[i].visible = 1;
 			tabPn[i].pn = i; 
 			write = 0; 
+			tabPr[number].presentation[tabPr[number].nofpresentations]=i; 
+			tabPr[number].nofpresentations++; 
+
 			break; 
 		}
 	} 
@@ -142,12 +147,14 @@ void AddNewPresentation(){
 		tabPn[PresentationCounter] = temp; 
 		tabPn[PresentationCounter].visible = 1;
 		tabPn[PresentationCounter].pn = PresentationCounter;
+		tabPr[number].presentation[tabPr[number].nofpresentations]=PresentationCounter; 
+		tabPr[number].nofpresentations++; 
 		printf("Dodano prezentacje o numerze %d (wpisz zero aby wrococ do menu)\n",PresentationCounter);
 		PresentationCounter++;
 	}
 	else
-		printf("Dodano prezentacje o numerze %d (wpisz 0 aby wrococ do menu)\n",i); 
-	scanf("%d",&i); 
+		printf("Dodano prezentacje o numerze %d (wpisz 0 aby wrocic do menu)\n",i); 
+	scanf("%s",&buff); 
 }
 
 void CreateCatPresenter(){
@@ -176,13 +183,13 @@ void CreateCatPresenter(){
 			else printf("Prezenter o podanym numerze nie istnieje\n"); 
 			temp.amount = j; 			
 		}
-	}while(buff[0]=!'q'); 
+	}while(buff[0]!='q'); 
 
 	catPr[CatPresenterCounter] = temp; 
 	CatPresenterCounter++;  
 
 	printf("Dodano %d elementow do katalogu (0 aby wrocic do menu)\n",j); 
-	scanf("%d",&i); 
+	scanf("%s",&buff); 
 }
 
 void CreateCatPresentation(){
@@ -202,7 +209,7 @@ void CreateCatPresentation(){
 	do{
 		printf("Wpisz numer porzadkowy prezentacji ktora chcesz dodac do katalogu (q aby zakonczyc)\n"); 
 		scanf("%s", &buff); 
-		if(StringCheck(buff)==8){
+		if(StringCheck(buff)==3){
 			number = atoi(buff); 
 			if(number<=PresentationCounter&&tabPn[number].visible){
 				temp.presentations[j] = number; 
@@ -217,7 +224,7 @@ void CreateCatPresentation(){
 	CatPresentationCounter++; 
 
 	printf("Dodano %d elementow do katalogu (0 aby wrocic do menu)\n",j); 
-	scanf("%d",&j);
+	scanf("%s",&buff);
 }
 
 void DeletePresenter(){
@@ -237,7 +244,7 @@ void DeletePresenter(){
 		else printf("bledny numer\n"); 	
 	}while(StringCheck(buff)!=3); 
 	printf("Usunieto prezentera o numerze %d ( Wpisz 0 aby wrococ do menu )\n",number);
-	scanf("%d",&number); 
+	scanf("%s",&buff); 
 
 }
 
@@ -258,7 +265,7 @@ void DeletePresentation(){
 		else printf("bledny numer\n"); 	
 	}while(StringCheck(buff)!=3); 
 	printf("Usunieto prezentacje o numerze %d ( Wpisz 0 aby wrococ do menu )\n",number);
-	scanf("%d",&number); 
+	scanf("%s",&buff); 
 
 }
 
@@ -334,12 +341,12 @@ void UpdatePresenter(){
 		else printf("bledny numer\n"); 	
 	}while(StringCheck(buff)!=3);
 	printf("Edytowano prezentera o numerze %d ( Wpisz 0 aby wrococ do menu )\n",number);
-	scanf("%d",&number); 
+	scanf("%s",&buff); 
 }
 
 void UpdatePresentation(){
 	Presentation temp;
-	int i, number,nu; 
+	int i,j, number,nu; 
 
 	do{
 		printf("Podaj numer prezentacji ktora chcesz edytowac\n"); 
@@ -388,7 +395,7 @@ void UpdatePresentation(){
 		else printf("bledny numer\n"); 	
 	}while(StringCheck(buff)!=3); 
 	printf("Edytowano prezentacje o numerze %d ( Wpisz 0 aby wrococ do menu )\n",number);
-	scanf("%d",&number); 
+	scanf("%s",&buff); 
 }
 
 void PrintPresenterTable(int sortorder){
@@ -408,9 +415,12 @@ void PrintPresenterTable(int sortorder){
 	printf("| id |    imie    |  nazwisko  | afiliacja |typ wystapienia|status platnosci|numery prezentacji|\n");
 	for(i=0; i<PresenterCounter; i++){
 	if(tabPr[tab[i]].visible){
-	printf("-----------------------------------------------------------------------------------------------|\n");
+	printf("|----------------------------------------------------------------------------------------------|\n");
 	printf("|%4d|%12s|%12s|%11s|",tabPr[tab[i]].pn,tabPr[tab[i]].name,tabPr[tab[i]].surname,tabPr[tab[i]].affiliation);
-	printf("%15s|%16s|%18d|\n",tabPr[tab[i]].gen,tabPr[tab[i]].payment,tabPr[tab[i]].nofpresentations); 
+	printf("%15s|%16s|",tabPr[tab[i]].gen,tabPr[tab[i]].payment,tabPr[tab[i]].nofpresentations); 
+	for(j=0; j<17; j++){if(j<1)printf("%d,",tabPr[tab[i]].presentation[j]);
+				 else { if(tabPr[tab[i]].presentation[j]==0)printf(" "); 
+					else printf("%d,",tabPr[tab[i]].presentation[j]);}}printf("\n");
 	}
 	}
 	printf("|----------------------------------------------------------------------------------------------|\n");
@@ -425,14 +435,14 @@ void PrintPresentationTable(int sortorder){
 	if(sortorder==1)qsort(tab,PresentationCounter,sizeof(int),ComparePresentationName);
 	if(sortorder==2)qsort(tab,PresentationCounter,sizeof(int),ComparePresentationType);	
 
-	printf("| id | nazwa  |   typ    |id  prezentujacego |\n");
+	printf("| id |      nazwa       |   typ    |id  prezentujacego |\n");
 	for(i=0; i<PresentationCounter; i++){
 		if(tabPn[i].visible){
-			printf("|--------------------------------------------|\n");
-			printf("|%4d|%8s|%10s|%18d|",tabPn[i].pn,tabPn[i].name,tabPn[i].type,tabPn[i].owner);
+			printf("|------------------------------------------------------|\n");
+			printf("|%4d|%18s|%10s|%19d|\n",tabPn[tab[i]].pn,tabPn[tab[i]].name,tabPn[tab[i]].type,tabPn[tab[i]].owner);
 		}
 	}
-	printf("|--------------------------------------------|\n");
+	printf("|------------------------------------------------------|\n");
 }
 
 void PrintMenu(){
@@ -457,30 +467,33 @@ void PrintCatPresenter(){
 		printf("|------------------------------------|\n");
 		printf("|%15s|%20d|\n",catPr[i].name,catPr[i].presenters[0]);
 		for(j=1; j<catPr[i].amount; j++){
-		printf("|                |%20d|\n",catPr[i].presenters[j]); 
+		printf("|               |%20d|\n",catPr[i].presenters[j]); 
 		}
 	}
 	printf("|------------------------------------|\n");
-	scanf("%d",&i); 
+	printf("Wpisz 0 aby wrococ do menu\n"); 
+	scanf("%s",&buff); 
 }
 
 void PrintCatPresentation(){
 	int i,j; 
 	printf("|     nazwa     | numery prezentacji |\n");
 	for(i=0; i<CatPresentationCounter; i++){
-		printf("|---------------------------------|\n");
-		printf("|%16s|%20d|",catPn[i].name,catPn[i].presentations[0]);
+		printf("|------------------------------------|\n");
+		printf("|%15s|%20d|\n",catPn[i].name,catPn[i].presentations[0]);
 		for(j=1; j<catPn[i].amount; j++){
-		printf("|                |%20d|\n",catPn[i].presentations[j]); 
+		printf("|               |%20d|\n",catPn[i].presentations[j]); 
 		}
 	}
-	printf("|----------------------------------|\n");
+	printf("|------------------------------------|\n");
+	printf("Wpisz 0 aby wrocic do menu\n");
+	scanf("%s",&buff); 
 }
 
 int Exit(){
 	do{
 		char buff[10];
-		printf("Czy na pewno chcesz zakonczyc (Wpisz TAK lub NIE\n"); 
+		printf("Czy na pewno chcesz zakonczyc (Wpisz TAK lub NIE)\n"); 
 		scanf("%s",&buff); 
 		if(strcmp(buff,"NIE"))return 0; 
 		
@@ -494,17 +507,17 @@ int Exit(){
 	return 1; 
 }
 
-int StringCheck(char *bufor){
+int StringCheck(char *bufor){/* funkcja sprawdzajaca jakie znaki wystepuja w ciagu */
 
 	int i;
 	int result=0; 
 
 	for(i=0; i<strlen(bufor)-1; i++){ 
 		if((bufor[i]<91&&bufor[i]>64)||(bufor[i]<123&&bufor[i]>96)||(bufor[i]<58&&bufor[i]>47))result=1; 
-		else return 0; 
+		else return 0; /*liczby i alfanumeryczne*/
 	} 
-	if(bufor[0]<91&&bufor[0]>64)result=2; 
-	if(bufor[0]<58&&bufor[0]>47)result=3; 
+	if(bufor[0]<91&&bufor[0]>64)result=2; /*wielka litera*/
+	if(bufor[0]<58&&bufor[0]>47)result=3; /*liczba*/
 
 	return result; 
 
