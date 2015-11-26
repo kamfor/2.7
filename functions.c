@@ -34,7 +34,7 @@ void AddNewPresenter(){
 	do{
 
 		printf("Wpisz afiliacje prezentera\n");
-		scanf("%s", &buff); 
+		scanf("%s",&buff); 
 		if(StringCheck(buff))strcpy(temp->affiliation, buff); 
 		else printf("bledna afiliacje\n");		
 	
