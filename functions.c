@@ -270,8 +270,10 @@ void DeletePresentation(){
 }
 
 void UpdatePresenter(){
-	Presenter temp; 
 	int number,j,nu; 
+	Presenter *temp;
+	temp = calloc(1,sizeof(Presenter));  
+
 	do{
 		printf("Podaj numer prezentera ktorego chcesz edytowac\n"); 
 		scanf("%s",&buff); 
@@ -282,38 +284,38 @@ void UpdatePresenter(){
 					do{
 						printf("Wpisz imie prezentera\n");
 						scanf("%s", &buff); 
-						if(StringCheck(buff)==2)strcpy(temp.name, buff); 
+						if(StringCheck(buff)==2)strcpy(temp->name, buff); 
 						else printf("bledne imie\n"); 
 					}while(StringCheck(buff)!=2); 
 
 					do{
 						printf("Wpisz nazwisko prezentera\n");
 						scanf("%s", &buff); 
-						if(StringCheck(buff)==2)strcpy(temp.surname, buff); 
+						if(StringCheck(buff)==2)strcpy(temp->surname, buff); 
 						else printf("bledne nazwisko\n"); 
 					}while(StringCheck(buff)!=2); 	
 
 					do{
 						printf("Wpisz afiliacje prezentera\n");
 						scanf("%s", &buff); 
-						if(StringCheck(buff))strcpy(temp.affiliation, buff); 
+						if(StringCheck(buff))strcpy(temp->affiliation, buff); 
 						else printf("bledna afiliacje\n");		
 					}while(StringCheck(buff)==0); 
 
 					do{
 						printf("Poadj rodzaj wystapienia 1-brak 2-ustne 3-plakat\n");
 						scanf("%s", &buff); 
-						if(buff[0]=='1')strcpy(temp.gen,"brak"); 
-						else if(buff[0]=='2')strcpy(temp.gen,"ustne"); 
-						else if(buff[0]=='3')strcpy(temp.gen,"plakat");  
+						if(buff[0]=='1')strcpy(temp->gen,"brak"); 
+						else if(buff[0]=='2')strcpy(temp->gen,"ustne"); 
+						else if(buff[0]=='3')strcpy(temp->gen,"plakat");  
 						else printf("bledny rodzaj wystapienia\n");
 					}while(StringCheck(buff)!=3); 
 
 					do{
 						printf("Wpisz status platnosci(0 - brak 1 - zaplacono)\n");
 						scanf("%s", &buff); 
-						if(buff[0]=='0')strcpy(temp.payment,"nie zaplacono");
-						else if(buff[0]=='1')strcpy(temp.payment,"zaplacono");  
+						if(buff[0]=='0')strcpy(temp->payment,"nie zaplacono");
+						else if(buff[0]=='1')strcpy(temp->payment,"zaplacono");  
 						else printf("bledny status platnosci\n");
 					}while(!(buff[0]=='1' || buff[0]=='0')); 
 
@@ -331,7 +333,7 @@ void UpdatePresenter(){
 						}		
 					}while(nu!=0); */
 					
-					tabPr[number] = temp; 
+					tabPr[number] = *temp; 
 					tabPr[number].visible = 1; 
 				}
 				else printf("element zostal juz usuniety\n"); 
