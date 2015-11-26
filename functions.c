@@ -491,20 +491,20 @@ void PrintCatPresentation(){
 }
 
 int Exit(){
-	do{
+	/*do{
 		char buff[10];
 		printf("Czy na pewno chcesz zakonczyc (Wpisz TAK lub NIE)\n"); 
 		scanf("%s",&buff); 
-		if(strcmp(buff,"NIE"))return 0; 
+		if(strcmp(buff,"NIE"))break; 
 		
-	}while(strcmp(buff,"TAK"));
+	}while(strcmp(buff,"TAK"));*/
 
 	free(tabPr); 
 	free(tabPn); 
 	free(catPr); 
 	free(catPn); 
 	
-	return 1; 
+	return 0; 
 }
 
 int StringCheck(char *bufor){/* funkcja sprawdzajaca jakie znaki wystepuja w ciagu */
