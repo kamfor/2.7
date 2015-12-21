@@ -1,14 +1,12 @@
 #ifndef CONTAINERS_H_INCLUDED
 #define CONTAINERS_H_INCLUDED
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "list.h"
 
 typedef struct Presenter{}; 
 
 typedef struct {
-	int pn;
+	char pn[16];
 	char name[64];  
 	char type[128];
 	Presenter * owner;
@@ -16,7 +14,7 @@ typedef struct {
 }Presentation;
 	
 typedef struct {
-	int pn; 
+	char pn[16]; 
 	char name[64]; 
 	char surname[64]; 
 	char affiliation[128]; 
@@ -26,10 +24,16 @@ typedef struct {
 	List listofcat; 
 }Presenter; 
 
-typedef struct {
-	char name[64]; 
-	char type[32]; 
-	List listofelements; 
-}Cat;
-// functions of containers from functions.h 
+int AddPresenter(); 
+int AddPresentation();
+Presenter * FindPresenter(char[]); 
+Presentation * FindPresentation(char[]); 
+int DeletePresenter(Presenter *); 
+int DeletePresentation(Presentation *); 
+int UpdatePresenter(Presenter *); 
+int UpdatePresentation(Presentation *); 
+int PrintPresenterTable(int); 
+int PrintPresentationTable(int); 
+
+
 #endif

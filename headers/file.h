@@ -3,6 +3,16 @@
 
 #include "containers.h"
 
+int CreateBin(); 
+int CreateRaw(); 
+int OpenBin(); 
+int OpenRaw(); 
+int SaveBin(); 
+int SaveRaw(); 
+int LoadBin(); 
+int LoadRaw(); 
+
+
 #endif
 
 
