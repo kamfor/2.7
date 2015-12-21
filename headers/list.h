@@ -2,17 +2,17 @@
 #define LIST_H
 
 #include <stdlib>
-#include <cstring>
+#include <cstring> 
 
 typedef struct Element{
-	struct element *prev;
-	struct element *next; 
-	void *obj; 
+	struct Element *prev;
+	struct Element *next; 
+	void * obj; 
 } Element;	
 
 typedef struct List{
-	element head; 
-	element tail;
+	Element head; 
+	Element tail;
 	int lenght; 
 } List; 
 	
