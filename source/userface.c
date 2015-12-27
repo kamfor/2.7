@@ -11,38 +11,35 @@ void PrintMenu(){
 	printf("-----------------------------------------------------------------------------------------\n");
 	printf("--------------------------WSPOMAGANIE ORGANIZACJI KONFERENCJI----------------------------\n");
 	printf("-----------------------------------------------------------------------------------------\n");
-	printf("-Wpisz 1 aby dodac prezentera          - wpisz 6 aby dodac katalog prezentacji          -\n"); 
-	printf("-Wpisz 2 aby dodac prezentacje         - wpisz 7 aby wyswietlic liste prezenterow       -\n"); 
-	printf("-Wpisz 3 aby usunac prezentera         - wpisz 8 aby wyswietlic liste prezentacji       -\n"); 
-	printf("-Wpisz 4 aby usunac prezentacje        - wpisz 9 aby wyswietlic liste katal. prezenterow-\n"); 
-	printf("-Wpisz 5 aby dodac katalog prezenterow - wpisz 10 aby wyswietic liste katal. prezentacji-\n");
-	printf("-Wpisz 11 aby edytowac prezentera      - wpisz 12 aby edytowac prezentacje              -\n");
-	printf("---------------------------------------- wpisz 0 aby zakonczyc                          -\n");
+	printf("-Wpisz 1 aby dodac prezentera          - wpisz 9 aby wyswietlic liste prezenterow       -\n"); 
+	printf("-Wpisz 2 aby dodac prezentacje         - wpisz 10 aby wyswietlic liste prezentacji      -\n"); 
+	printf("-Wpisz 3 aby usunac prezentera         - wpisz 11 aby wyswietlic liste kat. prezentacji -\n"); 
+	printf("-Wpisz 4 aby usunac prezentacje        - wpisz 12 aby wyswietlic liste kat.prezenterow  -\n"); 
+	printf("-Wpisz 5 aby dodac katalog prezenterow - wpisz 13 aby edytowac haslo dostepu            -\n");
+	printf("-Wpisz 6 aby dodac katalog prezentacji - wpisz 14 aby wyszukac prezentera               -\n");
+	printf("-Wpisz 7 aby edytowac prezentacje      - wpisz 15 aby wyszukac prezentacje              -\n");
+	printf("-Wpisz 8 aby edytowac prezentera       - wpisz 0 aby zakonczyc                          -\n");
 	printf("-----------------------------------------------------------------------------------------\n");
 }
 
 int Exit(){
-	/*do{
-		char buff[10];
-		printf("Czy na pewno chcesz zakonczyc (Wpisz TAK lub NIE)\n"); 
-		scanf("%s",&buff); 
-		if(strcmp(buff,"NIE"))break; 
-		
-	}while(strcmp(buff,"TAK"));*/
-
-	free(tabPr); 
-	free(tabPn); 
-	free(catPr); 
-	free(catPn); 
 	
+	/*recursive free all lists */
 	return 0; 
 }
 
-string * ReadFromStd(){
+int ReadFromStd(){
 
 /*
-scanf line and group line ( number, name, surname, etc.)
+scanf line and group line (yes/no, control variable)
 */
 }
 
-void Msg(
+void Msg(msgtype message, int position){
+	
+	switch(mwssage){
+
+	case WELCOME:
+	printf("WITAMY W PROGRAMIE\n"); 
+	}
+}

@@ -3,14 +3,27 @@
 
 #include "main.h"
 
-enum msgtype {
+typedef enum msgtype {
 	WELCOME,
-`	CLEAR, 
+	CLEAR, 
 	MAINMENU,
+	FILE_OPEN_ERR,
+	FILE_OPEN_SUCCES,
+	FILE_READ_ERR, 
+	CREATE_FILE_PROMPT,
+	CREATE_FILE_SUCCES,
+	CREATE_FILE_ERR,
+	PRESENTER_ADD,
+	PRESENTER_ADD_SUCCES, 
+	PRESNTATION_ADD,
+	PRESENTATION_ADD_SUCCES,
+	INPUT_ERR, 
+	
+	
 };
 
 int Exit(); 
-int ReadFromStd(); 
-
+int ReadFromStd();
+void Msg(msgtype, int); 
 
 #endif

@@ -3,11 +3,11 @@
 
 #include "list.h"
 
-typedef struct {
+typedef struct Cat{
 	char name[64];
 	char type[32];
 	List listofelements; 
-} Cat; 
+}; 
 
 int CreateCat(char[], char[]); 
 int PrintCat(Cat); 

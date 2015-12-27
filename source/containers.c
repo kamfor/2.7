@@ -2,84 +2,101 @@
 #include "containers.h"
 
 
-int AddPresenter(){
+Presenter * AddPresenter(char * fields){
 
-msg(name);
-read
-msg(surname);
-read;
-msg(affiliation); 
-read
-msg(gen); 
-read
-msg(payment)
-read
-msg(succes)
-info return
+Presenter temp;
+char dump[] = ","; 
+char * token; 
+char stemp[256]; 
+int i=1; 
+int j; 
+int noforesentations=0;
 
+	strcpy(fields,stemp); 
+	token = strtok(stemp,dump); 
+	while(token != NULL){
+		if(i==1){
+			for(j=0; j<strlen(token); j++){
+				if(isalpha(token[j])); 
+				else {
+					Msg(INPUT_ERR.i); 
+					return NULL; 
+				}
+			}
+			strcpy(token,temp.name); 
+		}
+		if(i==2){
+			for(j=0; j<strlen(token); j++){
+				if(isalpha(token[j])); 
+				else {
+					Msg(INPUT_ERR.i); 
+					return NULL; 
+				}
+			}
+			strcpy(token,temp.surname); 
+		}
+		if(i==3){
+			for(j=0; j<strlen(token); j++){
+				if(isalpha(token[j])); 
+				else {
+					Msg(INPUT_ERR.i); 
+					return NULL; 
+				}
+			}
+			strcpy(token,temp.affiliation); 
+		}
+		if(i==4){
+			if(token[0]=='0'||token[0]=='1'||token[0]=='2'){
+				temp.gen = token[0]; 
+			}
+			else {
+				Msg(INPUT_ERR,i); 
+				return NULL; 
+			}
+		}
+		if(i==5){
+			if(token[0]=='0'||token[0]=='1'){
+				temp.payment = token[0]; 
+			}
+			else {
+				Msg(INPUT_ERR,i); 
+				return NULL; 
+			}
+		}
+		if(i==6){
+			for(j=0; j<strlen(token); j++){
+				if(isdigit(token[j])); 
+				else {
+					Msg(INPUT_ERR.i); 
+					return NULL; 
+				}
+			}
+			temp.pn  = atoi(token); 
+		}
+		if(i>6){
+			for(j=0; j<strlen(token); j++){
+				if(isdigit(token[j])); 
+				else {
+					Msg(INPUT_ERR.i); 
+					return NULL; 
+				}
+			}
+			temp.presentations[nofpresentations]  = atoi(token); 
+			nofpresentations++; 
+		}
+	
+		token = strtok(NULL, dump); 
+		i++; 
+	}
+
+	return &temp; 
 
 }
 
 int AddPresentation(){
 
 	Presentation temp;
-	int i, number; 
-	int write=1; 
-
-	do{
-		printf("Wpisz nazwe prezentacji\n");
-		scanf("%s", &buff); 
-		if(StringCheck(buff))strcpy(temp.name, buff); 
-		else printf("bledna nazwa\n"); 
-
-	}while(StringCheck(buff)==0); 
-
-	do{
-		printf("Wpisz typ prezentacji 1-ustna 2-plakat\n");
-		scanf("%s", &buff); 
-		if(buff[0]=='1')strcpy(temp.type, "ustna"); 
-		else if(buff[0]=='2')strcpy(temp.type, "plakat"); 
-		else printf("bledny typ\n"); 
-
-	}while(StringCheck(buff)!=3); 
-
-	do{
-		printf("Wpisz numer prezentera ktory bedzie prezentowal prezentacje\n"); 
-		scanf("%s", &buff); 
-		if(StringCheck(buff)==3){
-			number = atoi(buff); 
-			if(number<=PresenterCounter&&tabPr[number].visible){
-				temp.owner = number;
-			}
-			else printf("Prezenter o podanym numerze nie istnieje\n");  
-		}
-		else printf("blad danych\n"); 
-	}while(temp.owner!=number);
-
-	for(i=0; i<PresentationCounter; i++){
-		if(tabPn[i].visible==0){
-			tabPn[i] = temp;
-			tabPn[i].visible = 1;
-			tabPn[i].pn = i; 
-			write = 0; 
-			tabPr[number].presentation[tabPr[number].nofpresentations]=i; 
-			tabPr[number].nofpresentations++; 
-
-			break; 
-		}
-	} 
-	if(write){
-		tabPn[PresentationCounter] = temp; 
-		tabPn[PresentationCounter].visible = 1;
-		tabPn[PresentationCounter].pn = PresentationCounter;
-		tabPr[number].presentation[tabPr[number].nofpresentations]=PresentationCounter; 
-		tabPr[number].nofpresentations++; 
-		printf("Dodano prezentacje o numerze %d (wpisz zero aby wrococ do menu)\n",PresentationCounter);
-		PresentationCounter++;
-	}
-	else
-		printf("Dodano prezentacje o numerze %d (wpisz 0 aby wrocic do menu)\n",i); 
-	scanf("%s",&buff); 
+	/*the same in AddPresenter*/
 }
 
 Presenter * FindPresenter(char[] field){

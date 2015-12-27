@@ -1,31 +1,30 @@
 #ifndef CONTAINERS_H_INCLUDED
 #define CONTAINERS_H_INCLUDED
 
+#include <ctype.h>
 #include "headers/list.h"
 
 typedef struct Presenter{}; 
 
 typedef struct {
-	char pn[16];
-	char name[64];  
-	char type[128];
-	Presenter * owner;
-	List listofcat;  
+	char name[64]; 
+	char type;/*0-ustna 1-plakat*/
+	int pn; 
+	int owner;
 }Presentation;
 	
-typedef struct {
-	char pn[16]; 
+typedef struct { 
 	char name[64]; 
 	char surname[64]; 
 	char affiliation[128]; 
-	char gen[64]; 
-	char payment[32];
-	List listofpresentations;
-	List listofcat; 
+	char gen; /*0-brak 1-ustne 2-plakat*/
+	char payment; /*0-brak 1-zaplacono*/
+	int pn;  
+	int presentations[100];  
 }Presenter; 
 
-int AddPresenter(); 
-int AddPresentation();
+Presenter * AddPresenter(char *); 
+Presentation *  AddPresentation(char *);
 Presenter * FindPresenter(char[]); 
 Presentation * FindPresentation(char[]); 
 int DeletePresenter(Presenter *); 
