@@ -63,3 +63,7 @@ int dellist(List * anlist){
 	//dekonstruktory i rekurencyjne usuwanie dowiazan  
 }
 
+Elament findit(List * anlist, void * object){
+
+}
+

@@ -1,7 +1,7 @@
 #ifndef CONTAINERS_H_INCLUDED
 #define CONTAINERS_H_INCLUDED
 
-#include "list.h"
+#include "headers/list.h"
 
 typedef struct Presenter{}; 
 
@@ -34,6 +34,7 @@ int UpdatePresenter(Presenter *);
 int UpdatePresentation(Presentation *); 
 int PrintPresenterTable(int); 
 int PrintPresentationTable(int); 
+int Compare(); /*find best result*/ 
 
 
 #endif

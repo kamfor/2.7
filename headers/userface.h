@@ -3,10 +3,14 @@
 
 #include "main.h"
 
-void ClearScreen(); 
-void PrintMenu(); 
+enum msgtype {
+	WELCOME,
+`	CLEAR, 
+	MAINMENU,
+};
+
 int Exit(); 
-int StringhiCheck(char*); 
-//add msg string 
+int ReadFromStd(); 
+
 
 #endif

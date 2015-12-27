@@ -11,7 +11,7 @@ typedef struct {
 
 int CreateCat(char[], char[]); 
 int PrintCat(Cat); 
-int AddToCat(void *); 
+int AddToCat(void *, Cat *); 
 
 #endif
 
