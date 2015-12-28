@@ -2,9 +2,8 @@
 
 int addnode(void * item, List * anlist){
 
-	Element *new; 
-	if((new=(Element *)malloc(sizeof(Element)))==NULL)
-		return 1; 
+	Element * new; 
+	if((new=(Element *)malloc(sizeof(Element)))==NULL)return 1; 
 
 	new->obj = item; 
 	

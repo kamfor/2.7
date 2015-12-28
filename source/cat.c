@@ -1,18 +1,24 @@
 #include "headers/cat.h"
 
+List listofcatalogues; 
+
 int CreateCat(char[] name, char[] type){
 
-	Cat temp; 
-	strcpy(temp.name, name); 
-	strcpy(temp.type, type); 
+	Cat * newcat; 
+	if(newcat = malloc(sizeof(Cat))==NULL)return 1; 
 	
-	//add to list 
+	strcpy(nawcat->name, name); 
+	strcpy(newcat->type, type); 
+
+	if(addnode(newcat, listofcatalogues))return 1; 
+
+	return 0; 
 }
 
 int PrintCat(Cat tmp){
 
 	Element temp; 
-	temp = tmp->lostofelements->head; 
+	temp = tmp->listofelements->head; 
 	
 	while(temp!="NULL"){
 	/*print pretty table of elements from cat by name */
@@ -22,9 +28,9 @@ int PrintCat(Cat tmp){
 
 int AddToCat(void * element, Cat * catalogue){
 
-	if(addnode(element, catalogue->listofelements))Msg(OK); 
-	else Msg(ERR); 
-
+	if(addnode(element, catalogue->listofelements))return 1; 
+	
+	return 0; 
 }
 
 

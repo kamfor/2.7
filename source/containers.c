@@ -4,13 +4,14 @@
 
 Presenter * AddPresenter(char * fields){
 
-Presenter temp;
-char dump[] = ","; 
-char * token; 
-char stemp[256]; 
-int i=1; 
-int j; 
-int noforesentations=0;
+	Presenter * newpresenter;
+	if(newpresenter=malloc(sizeof(Presenter))==NULL)return NULL; 
+	char dump[] = ","; 
+	char * token; 
+	char stemp[256]; 
+	int i=1; 
+	int j; 
+	int nofpresentations=0;
 
 	strcpy(fields,stemp); 
 	token = strtok(stemp,dump); 
@@ -23,7 +24,7 @@ int noforesentations=0;
 					return NULL; 
 				}
 			}
-			strcpy(token,temp.name); 
+			strcpy(token,nwepresenter->name); 
 		}
 		if(i==2){
 			for(j=0; j<strlen(token); j++){
@@ -33,7 +34,7 @@ int noforesentations=0;
 					return NULL; 
 				}
 			}
-			strcpy(token,temp.surname); 
+			strcpy(token,newpresenter->surname); 
 		}
 		if(i==3){
 			for(j=0; j<strlen(token); j++){
@@ -43,26 +44,26 @@ int noforesentations=0;
 					return NULL; 
 				}
 			}
-			strcpy(token,temp.affiliation); 
+			strcpy(token,newpresenter->affiliation); 
 		}
 		if(i==4){
 			if(token[0]=='0'||token[0]=='1'||token[0]=='2'){
-				temp.gen = token[0]; 
+				newpresenter->gen = token[0]; 
 			}
-			else {
+		else {
 				Msg(INPUT_ERR,i); 
 				return NULL; 
 			}
 		}
 		if(i==5){
 			if(token[0]=='0'||token[0]=='1'){
-				temp.payment = token[0]; 
+				newpresenter->payment = token[0]; 
 			}
 			else {
 				Msg(INPUT_ERR,i); 
 				return NULL; 
 			}
-		}
+			}
 		if(i==6){
 			for(j=0; j<strlen(token); j++){
 				if(isdigit(token[j])); 
@@ -71,7 +72,7 @@ int noforesentations=0;
 					return NULL; 
 				}
 			}
-			temp.pn  = atoi(token); 
+			newpresenter->pn  = atoi(token); 
 		}
 		if(i>6){
 			for(j=0; j<strlen(token); j++){
@@ -81,7 +82,7 @@ int noforesentations=0;
 					return NULL; 
 				}
 			}
-			temp.presentations[nofpresentations]  = atoi(token); 
+			newpresenter->presentations[nofpresentations]  = atoi(token); 
 			nofpresentations++; 
 		}
 	
@@ -89,14 +90,71 @@ int noforesentations=0;
 		i++; 
 	}
 
-	return &temp; 
+	return newpresenter;
 
 }
 
 int AddPresentation(){
 
-	Presentation temp;
-	/*the same in AddPresenter*/
+
+	Presentation * newpresentation;
+	if(newpresentation=malloc(sizeof(Presentation))==NULL)return NULL; 
+	char dump[] = ","; 
+	char * token; 
+	char stemp[256]; 
+	int i=1; 
+	int j; 
+
+	strcpy(fields,stemp); 
+	token = strtok(stemp,dump); 
+	while(token != NULL){
+		if(i==1){
+			for(j=0; j<strlen(token); j++){
+				if(isalpha(token[j])); 
+				else {
+					Msg(INPUT_ERR.i); 
+					return NULL; 
+				}
+			}
+			strcpy(token,nwepresentation->name); 
+		}
+		if(i==2){
+			if(token[0]=='0'||token[0]=='1'){
+				newpresentation->type = token[0]; 
+			}
+			else {
+				Msg(INPUT_ERR,i); 
+				return NULL; 
+			}
+		}
+		if(i==3){
+			for(j=0; j<strlen(token); j++){
+				if(isdigit(token[j])); 
+				else {
+					Msg(INPUT_ERR.i); 
+					return NULL; 
+				}
+			}
+			newpresentation->pn  = atoi(token); 
+		}
+		if(i==4){
+			for(j=0; j<strlen(token); j++){
+				if(isdigit(token[j])); 
+				else {
+					Msg(INPUT_ERR.i); 
+					return NULL; 
+				}
+			}
+			newpresentation->owner  = atoi(token); 
+		}
+
+	
+		token = strtok(NULL, dump); 
+		i++; 
+	}
+
+	return newpresentation;
+
 }
 
 Presenter * FindPresenter(char[] field){
