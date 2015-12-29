@@ -63,39 +63,34 @@ int SaveBin(){
 }
 
 int SaveRaw(){
-
-	char line[256]; 
-
-	while(!feof(fleraw)){
-		if(fgets(line,256,fileraw)!=NULL){
-			if(AddPresenter(line)==NULL)return 1; 
-		}
-		else{
-			Msg(FILE_READ_ERR,0);
-			return 1; 
-		}
-	}
-
+	
+	PrintFileHeader(); 
+	PrintPresenterHeader(); 
+	PrintPresenterTable(fileraw); 
+	PrintPresentationHeader(); 
+	PrintPresentationTable(fileraw);
+	PrintCatHeader(); 
+	PrintCatTable(fileraw); 
 	return 0; 
-
 }
 
 int LoadBin(){
-	
+	/*readline and group by first char*/
 
-
+	return 0;
 }
 
 int LoadRaw(){
+	int control=0; /*0-Presenter 1-Presentation 2-Catalogues*/
+	
+	/*readline and group by first char*/
 
 	return 0; 
-
 }
 
 int CheckPasswd(char * pass, char * rpass){
  
 	/*create hash from pass*/
-	/*compare hash*/ 
 	if(strcmp(pass,rpass)) return 0; 
 	return 1; 
 }

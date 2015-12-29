@@ -31,8 +31,8 @@ int DeletePresenter(Presenter *);
 int DeletePresentation(Presentation *); 
 int UpdatePresenter(Presenter *); 
 int UpdatePresentation(Presentation *); 
-int PrintPresenterTable(int); 
-int PrintPresentationTable(int); 
+int PrintPresenterTable(void *); 
+int PrintPresentationTable(void *); 
 int Compare(); /*find best result*/ 
 
 

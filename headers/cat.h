@@ -12,6 +12,7 @@ typedef struct Cat{
 int CreateCat(char[], char[]); 
 int PrintCat(Cat); 
 int AddToCat(void *, Cat *); 
+void PrintCatTable(void *); 
 
 #endif
 
