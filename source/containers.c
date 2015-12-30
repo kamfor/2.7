@@ -1,6 +1,9 @@
 #include <string.h>
 #include "containers.h"
 
+List ListofPresenters; 
+List ListofPresentatons;
+
 
 Presenter * AddPresenter(char * fields){
 
@@ -62,6 +65,19 @@ Presenter * AddPresenter(char * fields){
 			else {
 				Msg(INPUT_ERR,i); 
 				return NULL; 
+	Element * temp; 
+	temp  = ListOfPresenters->head; 
+
+	
+	while(temp !=NULL){
+		
+		if(strcmp(field,temp->obj->name))return temp->obj; 
+		else if (strcmp(field,temp->obk->surname))return temp->obj; 
+		else if (strcmp(field,temp->obj->affiliation)) return temp->obj; 
+		else if (temp->obj->pn = atoi(field)) return temp->obj; 
+		else return null;
+		temp = temp->next; 
+	}
 			}
 			}
 		if(i==6){
@@ -158,14 +174,35 @@ int AddPresentation(){
 }
 
 Presenter * FindPresenter(char[] field){
-/* searching for field in any record*/ 
 
+	Element * temp; 
+	temp  = ListOfPresenters->head; 
+
+	
+	while(temp !=NULL){
+		
+		if(strcmp(field,temp->obj->name))return temp->obj; 
+		else if (strcmp(field,temp->obk->surname))return temp->obj; 
+		else if (strcmp(field,temp->obj->affiliation)) return temp->obj; 
+		else if (temp->obj->pn = atoi(field)) return temp->obj; 
+		else return null;
+		temp = temp->next; 
+	}
 }
 
 
 Presentation * FindPresentation(char[] field){
-/* searching for field in any record*/ 
 
+	Element * temp; 
+	temp  = ListOfPresentations->head; 
+
+	while(temp !=NULL){
+		
+		if(strcmp(field,temp->obj->name))return temp->obj;  
+		else if (temp->obj->pn = atoi(field)) return temp->obj; 
+		else return null;
+		temp = temp->next; 
+	}
 }
 
 int DeletePresenter(Presenter * dead){

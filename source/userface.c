@@ -23,16 +23,29 @@ void PrintMenu(){
 }
 
 int Exit(){
+
+	int i;
+	Element * temp; 
+	temp = ListOfPresenters->head; 
+	while(temp!=NULL){
 	
-	/*recursive free all lists */
-	return 0; 
+		if(delnode(temp,&ListOfPresenters))return 1;  	
+	}
+	if(dellist(&ListOfPresenters))return 1; 
+	temp = ListOfPresentations; 
+	while(temp!=NULL){
+	
+		if(delnode(temp,&ListOfPresentations))return 1;  	
+	}
+	if(dellist(&ListOfPresentations))return 1; 
+
+	return 0; 	
 }
 
 int ReadFromStd(){
-
-/*
-scanf line and group line (yes/no, control variable)
-*/
+	char line[256]; 
+	scanf("%s", line); 
+	if(atoi(line)>=0&&atoi(line)<16)return atoi(line); 
 }
 
 void Msg(msgtype message, int position){
