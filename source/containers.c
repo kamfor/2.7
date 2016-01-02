@@ -1,8 +1,8 @@
 #include <string.h>
 #include "containers.h"
 
-List ListofPresenters; 
-List ListofPresentatons;
+List listofpresenters; 
+List listofpresentations;
 
 
 Presenter * AddPresenter(char * fields){
@@ -14,7 +14,6 @@ Presenter * AddPresenter(char * fields){
 	char stemp[256]; 
 	int i=1; 
 	int j; 
-	int nofpresentations=0;
 
 	strcpy(fields,stemp); 
 	token = strtok(stemp,dump); 
@@ -65,21 +64,8 @@ Presenter * AddPresenter(char * fields){
 			else {
 				Msg(INPUT_ERR,i); 
 				return NULL; 
-	Element * temp; 
-	temp  = ListOfPresenters->head; 
-
-	
-	while(temp !=NULL){
-		
-		if(strcmp(field,temp->obj->name))return temp->obj; 
-		else if (strcmp(field,temp->obk->surname))return temp->obj; 
-		else if (strcmp(field,temp->obj->affiliation)) return temp->obj; 
-		else if (temp->obj->pn = atoi(field)) return temp->obj; 
-		else return null;
-		temp = temp->next; 
-	}
 			}
-			}
+		}
 		if(i==6){
 			for(j=0; j<strlen(token); j++){
 				if(isdigit(token[j])); 
@@ -90,7 +76,7 @@ Presenter * AddPresenter(char * fields){
 			}
 			newpresenter->pn  = atoi(token); 
 		}
-		if(i>6){
+		ifsd1qwd(i>6){
 			for(j=0; j<strlen(token); j++){
 				if(isdigit(token[j])); 
 				else {
@@ -98,8 +84,9 @@ Presenter * AddPresenter(char * fields){
 					return NULL; 
 				}
 			}
-			newpresenter->presentations[nofpresentations]  = atoi(token); 
-			nofpresentations++; 
+			if(addnode(FindPresentation(token,listofpresentations),&newpresenter->presentations)){
+				Msg(ADD_ERR); 
+			} 
 		}
 	
 		token = strtok(NULL, dump); 
@@ -161,7 +148,7 @@ int AddPresentation(){
 					return NULL; 
 				}
 			}
-			newpresentation->owner  = atoi(token); 
+			newpresentation->owner = FindPresenter(token);  
 		}
 
 	
@@ -173,52 +160,62 @@ int AddPresentation(){
 
 }
 
-Presenter * FindPresenter(char[] field){
+Element * FindPresenter(char[] field, List * anlist){
 
 	Element * temp; 
-	temp  = ListOfPresenters->head; 
+	temp  = anlist->head; 
 
 	
 	while(temp !=NULL){
 		
-		if(strcmp(field,temp->obj->name))return temp->obj; 
-		else if (strcmp(field,temp->obk->surname))return temp->obj; 
-		else if (strcmp(field,temp->obj->affiliation)) return temp->obj; 
-		else if (temp->obj->pn = atoi(field)) return temp->obj; 
+		if(strcmp(field,temp->obj->name))return temp; 
+		else if (strcmp(field,temp->obk->surname))return temp; 
+		else if (strcmp(field,temp->obj->affiliation)) return temp; 
+		else if (temp->obj->pn = atoi(field)) return temp; 
 		else return null;
 		temp = temp->next; 
 	}
 }
 
-
-Presentation * FindPresentation(char[] field){
+Element * FindPresentation(char[] field, List * anlist){
 
 	Element * temp; 
-	temp  = ListOfPresentations->head; 
+	temp  = anlist->head; 
 
 	while(temp !=NULL){
 		
-		if(strcmp(field,temp->obj->name))return temp->obj;  
-		else if (temp->obj->pn = atoi(field)) return temp->obj; 
+		if(strcmp(field,temp->obj->name))return temp;  
+		else if (temp->obj->pn = atoi(field)) return temp; 
 		else return null;
 		temp = temp->next; 
 	}
 }
 
 int DeletePresenter(Presenter * dead){
-/*clean all memory and all dependences refered to dead*/
+	
+	if(delnode(FindPresenter(dead->pn,listofpresenters),listofpresenters))Msg(DEL_ERR); 
+	if(delnode(FindPresenter(dead->pn,FindInCats(dead->pn)),FindInCats(dead->pn))Msg(DEL_ERR);
 }
 
 int DeletePresentation(Presentation * dead){
-/*clean all memory and all dependences refered to dead*/
+	
+	if(delnode(FindPresentation(dead->pn,listofpresentations),listofpresentations))Msg(DEL_ERR); 
+	if(delnode(FindPresentation(dead->pn,FindInCats(dead->pn)),FindInCats(dead->pn))Msg(DEL_ERR);
 }
 
+
 int UpdatePresenter(Presenter * new){
-/* backup, remove, assign id from old :)*/
+	Element * temp; 
+	temp = FindPresenter(new->pn, listofpresenters); 
+	
+	temp->obj = new; 
 }
 
 int UpdatePresentation(Presentation * new){
-/* backup, remove, assign id from old :)*/
+	Element * temp; 
+	temp = FindPresentation(new->pn, listofpresentations); 
+	
+	temp->obj = new; 
 }
 
 
@@ -255,21 +252,7 @@ int PrintPresenterTable(int sortorder){
 }
 
 int PrintPresentationTable(int sortorder){
-	int i,j; 
-	int *tab = malloc(PresentationCounter *sizeof(int)); 
 
-	for(i=0; i<PresentationCounter; i++)tab[i]=i;
-	if(sortorder==1)qsort(tab,PresentationCounter,sizeof(int),ComparePresentationName);
-	if(sortorder==2)qsort(tab,PresentationCounter,sizeof(int),ComparePresentationType);	
-
-	printf("| id |      nazwa       |   typ    |id  prezentujacego |\n");
-	for(i=0; i<PresentationCounter; i++){
-		if(tabPn[i].visible){
-			printf("|------------------------------------------------------|\n");
-			printf("|%4d|%18s|%10s|%19d|\n",tabPn[tab[i]].pn,tabPn[tab[i]].name,tabPn[tab[i]].type,tabPn[tab[i]].owner);
-		}
-	}
-	printf("|------------------------------------------------------|\n");
 }
 
 int ComparePresenterName (const void * a, const void * b){

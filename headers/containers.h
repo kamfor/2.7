@@ -10,7 +10,7 @@ typedef struct {
 	char name[64]; 
 	char type;/*0-ustna 1-plakat*/
 	int pn; 
-	int owner;
+	Presenter * owner;
 }Presentation;
 	
 typedef struct { 
@@ -20,13 +20,13 @@ typedef struct {
 	char gen; /*0-brak 1-ustne 2-plakat*/
 	char payment; /*0-brak 1-zaplacono*/
 	int pn;  
-	int presentations[100];  
+	List  presentations;
 }Presenter; 
 
 Presenter * AddPresenter(char *); 
 Presentation *  AddPresentation(char *);
-Presenter * FindPresenter(char[]); 
-Presentation * FindPresentation(char[]); 
+Element * FindPresenter(char[]); 
+Element * FindPresentation(char[]); 
 int DeletePresenter(Presenter *); 
 int DeletePresentation(Presentation *); 
 int UpdatePresenter(Presenter *); 

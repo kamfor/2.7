@@ -9,11 +9,12 @@ typedef struct Cat{
 	List listofelements; 
 }; 
 
-int CreateCat(char[], char[]); 
+int CreateCat(char[], char[]);
+void PrintCatHeader(); 
 int PrintCat(Cat); 
 int AddToCat(void *, Cat *); 
-void PrintCatTable(void *); 
-
+void PrintCatTable(); 
+List * FindInCats(char[] id); 
 #endif
 
 

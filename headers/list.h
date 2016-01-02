@@ -11,8 +11,8 @@ typedef struct Element{
 } Element;	
 
 typedef struct List{
-	Element head; 
-	Element tail;
+	Element * head; 
+	Element * tail;
 	int lenght; 
 } List; 
 	
@@ -20,6 +20,4 @@ typedef struct List{
 int addnode(void *, List *); 
 int delnode(Element *,List *); 
 int dellist(List *); 
-
-Element findit(List *, void *); 
 #endif

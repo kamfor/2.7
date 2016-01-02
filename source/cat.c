@@ -15,15 +15,22 @@ int CreateCat(char[] name, char[] type){
 	return 0; 
 }
 
+void PrintCatHeader{
+	printf("|Nazwa,  Typ, Lista Elementów...|\n"); 
+}
+
 int PrintCat(Cat tmp){
 
-	Element temp; 
-	temp = tmp->listofelements->head; 
+	Element * temp; 
+	temp = tmp->listofelements->head;
+	
+	printf("%s, %s",tmp->name, tmp->type); 
 	
 	while(temp!="NULL"){
-	/*print pretty table of elements from cat by name */
+		printf("%s;",temp->pn); 		
 		temp = temp->next; 
 	}
+	printf("\n"); 
 }
 
 int AddToCat(void * element, Cat * catalogue){
@@ -33,6 +40,28 @@ int AddToCat(void * element, Cat * catalogue){
 	return 0; 
 }
 
-
+void PrintCatTable(){
+	Element * temp; 
+	temp = listofcatalogues->head; 
+	PrintCatHeader(); 
 	
+	while(temp!=NULL){
+		PrintCat(temp->obj); 
+	}	
+}
+
+List * FindInCats(char[] id){
+	Element * templ;
+	Element * tempp;  
+	templ = listofcatalogues->head; 
+	while(templ!=NULL){
+		tempp = templ->obj->listofelements->head; 
+		while(tempp!=NULL){
+			if(strcmp(tempp->obj->pn,id)return templ->obj->listofelements; 
+			tempp = tempp->next; 
+		}
+		templ = templ->next;
+	}
+	return NULL; 
+}	
 	
