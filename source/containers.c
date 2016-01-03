@@ -3,6 +3,8 @@
 
 List listofpresenters; 
 List listofpresentations;
+Presenter tabPn[]; 
+Presentation tabPr[]; /*wskazniki tablic do sotrowania */
 
 
 Presenter * AddPresenter(char * fields){
@@ -23,7 +25,7 @@ Presenter * AddPresenter(char * fields){
 				if(isalpha(token[j])); 
 				else {
 					Msg(INPUT_ERR.i); 
-					return NULL; 
+			 		return NULL; 
 				}
 			}
 			strcpy(token,nwepresenter->name); 
@@ -97,7 +99,7 @@ Presenter * AddPresenter(char * fields){
 
 }
 
-int AddPresentation(){
+int AddPresentation(char * fields){
 
 
 	Presentation * newpresentation;
@@ -153,7 +155,7 @@ int AddPresentation(){
 
 	
 		token = strtok(NULL, dump); 
-		i++; 
+ 		i++; 
 	}
 
 	return newpresentation;
@@ -219,36 +221,27 @@ int UpdatePresentation(Presentation * new){
 }
 
 
-
-
-
 int PrintPresenterTable(int sortorder){
-	int i,j; 
-	int *tab = malloc(PresenterCounter *sizeof(int)); 
+	int i,j;
+	int tab[];
+	Element  * temp; 
+	i=0; 
+	tab = malloc(listofpresenters.lenght*sizeof(int)); 
+	tabPn = malloc(listofpresenters.lenght*sizeof(Presenter *));
+	temp = listofpresenters.head; 
+	while(temp!=NULL){
+		tabPn[i]=temp->obj; 
+		temp = temp->next;
+	}
 	
 	for(i=0; i<PresenterCounter; i++)tab[i]=i;
 	
 	if(sortorder==1)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterName);
 	if(sortorder==2)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterSurname);
-	if(sortorder==3)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterAffiliation); 
-	if(sortorder==4)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterGen); 
+	if(sortorder==3)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterAffiliation);
+	if(sortorder==4)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterGen);
 	if(sortorder==5)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterPayment);
-	if(sortorder==6)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterPresentations);
-
-
-	printf("| id |    imie    |  nazwisko  | afiliacja |typ wystapienia|status platnosci|numery prezentacji|\n");
-	for(i=0; i<PresenterCounter; i++){
-	if(tabPr[tab[i]].visible){
-	printf("|----------------------------------------------------------------------------------------------|\n");
-	printf("|%4d|%12s|%12s|%11s|",tabPr[tab[i]].pn,tabPr[tab[i]].name,tabPr[tab[i]].surname,tabPr[tab[i]].affiliation);
-	printf("%15s|%16s|",tabPr[tab[i]].gen,tabPr[tab[i]].payment,tabPr[tab[i]].nofpresentations); 
-	for(j=0; j<17; j++){if(j<1)printf("%d,",tabPr[tab[i]].presentation[j]);
-				 else { if(tabPr[tab[i]].presentation[j]==0)printf(" "); 
-					else printf("%d,",tabPr[tab[i]].presentation[j]);}}printf("\n");
-	}
-	}
-	printf("|----------------------------------------------------------------------------------------------|\n");
-		
+	if(sortorder==6)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterPresentations);	
 }
 
 int PrintPresentationTable(int sortorder){
