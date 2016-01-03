@@ -7,18 +7,18 @@
 
 
 
-int CreateBin(); 
-int CreateRaw(); 
-int OpenBin(); 
-int OpenRaw(); 
-int SaveBin(); 
-int SaveRaw(); 
-int LoadBin(); 
-int LoadRaw(); 
-int CheckPasswd(char *); 
-void PrintFileHeader(); 
-void PrintPresenterHeader(); 
-void PrintPresentationHeader(); 
-void PrintCatHeader(); 
+int CreateBin();
+int CreateRaw();
+int OpenBin();
+int OpenRaw();
+int SaveBin();
+int SaveRaw();
+int LoadBin();
+int LoadRaw();
+int CheckPasswd(char *);
+void PrintFileHeader();
+void PrintPresenterHeader(void *);
+void PrintPresentationHeader(void *);
+void PrintCatHeader(void *); 
 
 #endif

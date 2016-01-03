@@ -54,9 +54,7 @@ int OpenRaw(){
 }
 
 int SaveBin(){
-
-	/*clean file and save items from lists presenters presentations and catalogues*/
-	/*dump all program data into table first line will be passwd key*/
+	fwrite(); /*save bins in 3 files as structures (bolck of memores)*/
 
 	return 0; 
 
@@ -65,25 +63,26 @@ int SaveBin(){
 int SaveRaw(){
 	
 	PrintFileHeader(); 
-	PrintPresenterHeader(); 
+	PrintPresenterHeader(fileraw); 
 	PrintPresenterTable(fileraw); 
-	PrintPresentationHeader(); 
+	PrintPresentationHeader(fileraw); 
 	PrintPresentationTable(fileraw);
-	PrintCatHeader(); 
+	PrintCatHeader(fileraw); 
 	PrintCatTable(fileraw); 
 	return 0; 
 }
 
 int LoadBin(){
-	/*readline and group by first char*/
+	fread(); 
 
 	return 0;
 }
 
 int LoadRaw(){
 	int control=0; /*0-Presenter 1-Presentation 2-Catalogues*/
+	char line[1024];
 	
-	/*readline and group by first char*/
+	fscanf(filebin,"%s",line); 
 
 	return 0; 
 }

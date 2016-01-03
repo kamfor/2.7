@@ -25,5 +25,8 @@ typedef enum msgtype {
 int Exit(); 
 int ReadFromStd();
 void Msg(msgtype, int); 
-
+void PrintFileHeader(); 
+void PrintPresenterHeader(void *); 
+void PrintPresentationHeader(void *);
+void PrintCatHeader(void *);
 #endif

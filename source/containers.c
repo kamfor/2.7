@@ -221,7 +221,16 @@ int UpdatePresentation(Presentation * new){
 }
 
 
-int PrintPresenterTable(int sortorder){
+int PrintPresenterTable(void * stream){
+	Element * temp; 
+	temp = listofpresenters.head;
+	while(temp!=NULL){
+		fprintf(stream); 
+		temp = temp->next; 
+	}
+}
+
+void PrintSortedPresenterTable(int sortorder){
 	int i,j;
 	int tab[];
 	Element  * temp; 
@@ -242,10 +251,35 @@ int PrintPresenterTable(int sortorder){
 	if(sortorder==4)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterGen);
 	if(sortorder==5)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterPayment);
 	if(sortorder==6)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterPresentations);	
+
 }
 
-int PrintPresentationTable(int sortorder){
+int PrintPresentationTable(void * stream){
+	Element * temp; 
+	temp = listofpresentations.head;
+	while(temp!=NULL){
+		fprintf(stream); 
+		temp = temp->next; 
+	}
+}
 
+void PrintPresentationsTable(int sotrorder){
+	int i,j;
+	int tab[];
+	Element  * temp; 
+	i=0; 
+	tab = malloc(listofpresenters.lenght*sizeof(int)); 
+	tabPn = malloc(listofpresenters.lenght*sizeof(Presenter *));
+	temp = listofpresenters.head; 
+	while(temp!=NULL){
+		tabPn[i]=temp->obj; 
+		temp = temp->next;
+	}
+	
+	for(i=0; i<PresenterCounter; i++)tab[i]=i;
+	
+	if(sortorder==1)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterName);
+	if(sortorder==2)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterSurname);
 }
 
 int ComparePresenterName (const void * a, const void * b){
