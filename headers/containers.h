@@ -20,7 +20,7 @@ typedef struct {
 	char gen; /*0-brak 1-ustne 2-plakat*/
 	char payment; /*0-brak 1-zaplacono*/
 	int pn;  
-	List  presentations;
+	List presentations;
 }Presenter; 
 
 Presenter * AddPresenter(char *); 
@@ -31,10 +31,12 @@ int DeletePresenter(Presenter *);
 int DeletePresentation(Presentation *); 
 int UpdatePresenter(Presenter *); 
 int UpdatePresentation(Presentation *); 
-int PrintPresenterTable(void *);
-void PrintSortedPresenterTable(int);  
-int PrintPresentationTable(void *);
-void PrintSortedPresentationTable(int);  
+void PrintPresenterFile(void *);
+void PrintSortedPresenterTable(int);
+void PrintPresenterLine(Presenter *,FILE *);   
+void PrintPresentationFile(void *);
+void PrintSortedPresentationTable(int);
+void PrintPresentationLine(Presentation *,FILE *);   
 /*compare function*/ 
 
 

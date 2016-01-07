@@ -3,8 +3,8 @@
 
 List listofpresenters; 
 List listofpresentations;
-Presenter tabPn[]; 
-Presentation tabPr[]; /*wskazniki tablic do sotrowania */
+Presenter tabPr[]; 
+Presentation tabPn[]; /*wskazniki tablic do sotrowania */
 
 
 Presenter * AddPresenter(char * fields){
@@ -221,12 +221,18 @@ int UpdatePresentation(Presentation * new){
 }
 
 
-int PrintPresenterTable(void * stream){
-	Element * temp; 
+void PrintPresenterFile(FILE *stream){
+	Element * temp;
+	Element * prestemp;  
 	temp = listofpresenters.head;
-	while(temp!=NULL){
-		fprintf(stream); 
-		temp = temp->next; 
+	for(;temp!=NULL;temp=temp->next){
+		fprintf(stream,"%s;%s;%s;",temp->obj->name,temp->obj->surname,temp->obj->affiliation); 
+		fprintf(stream,"%c:%c;",temp->obj->gen,temp->obj->payment); 
+		fprintf(stream,"%d;",temo->obj->pn); 
+		for(prestemp = temp->obj->presentations.head;prestemp!=NULL;prestemp = prestemp->next){
+			fprintf(stream,"%d;",prestemp->obj->pn); 
+		}
+		fprintf(stream,"\n"); 
 	}
 }
 
@@ -234,52 +240,76 @@ void PrintSortedPresenterTable(int sortorder){
 	int i,j;
 	int tab[];
 	Element  * temp; 
-	i=0; 
 	tab = malloc(listofpresenters.lenght*sizeof(int)); 
 	tabPn = malloc(listofpresenters.lenght*sizeof(Presenter *));
 	temp = listofpresenters.head; 
-	while(temp!=NULL){
-		tabPn[i]=temp->obj; 
-		temp = temp->next;
-	}
+	for(i=0;temp!=NULL;temp=temp->next,tabPr[i]=temp->obj,i++);
+	j=i+1; 
+	for(i=0;i<j;tab[i]=i,i++);
 	
-	for(i=0; i<PresenterCounter; i++)tab[i]=i;
+	if(sortorder==1)qsort(tab,j,sizeof(int),ComparePresenterName);
+	if(sortorder==2)qsort(tab,j,sizeof(int),ComparePresenterSurname);
+	if(sortorder==3)qsort(tab,j,sizeof(int),ComparePresenterAffiliation);
+	if(sortorder==4)qsort(tab,j,sizeof(int),ComparePresenterGen);
+	if(sortorder==5)qsort(tab,j,sizeof(int),ComparePresenterPayment);
+	if(sortorder==6)qsort(tab,j,sizeof(int),ComparePresenterPresentations);
 	
-	if(sortorder==1)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterName);
-	if(sortorder==2)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterSurname);
-	if(sortorder==3)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterAffiliation);
-	if(sortorder==4)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterGen);
-	if(sortorder==5)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterPayment);
-	if(sortorder==6)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterPresentations);	
-
+	for(i=0;i<j;i++)PrintPresenterLine(tabPr[tab[i]],stdout); 
 }
 
-int PrintPresentationTable(void * stream){
-	Element * temp; 
+void PrintPresenterLine(Presenter * any, FILE * stream){
+	
+	int i; 
+	Element *temp; 
+	temp = any->presentations.head; 
+	
+	fprintf(stream,"|%4d|%30s|%30s|%40s|",any->pn,any->name,any->surname,any->affiliation); 
+	if(any->gen=='0')fprintf(stream,"brak  |"); 
+	if(any->gen=='1')fprintf(stream,"ustne |"); 
+	if(any->gen=='2')fprintf(stream,"plakat|"); 
+	if(any->payment=='0')fprintf(stream,"brak     |"); 
+	if(any->payment=='1')fprintf(stream,"zaplacono|"); 
+	for(;temp!=NULL;temp = temp->next){
+		for(i=0; i<121;i++)fprintf(stream," "); 
+		fprintf(stream,"|%20s|\n",temp->obj->name); 
+	}
+}
+	
+
+void PrintPresentationFile(void * stream){
+	Element * temp;  
 	temp = listofpresentations.head;
-	while(temp!=NULL){
-		fprintf(stream); 
-		temp = temp->next; 
+	for(;temp!=NULL;temp = temp->next){
+		fprintf(stream,"%s;%c;",temp->obj->name,temp->obj->type); 
+		fprintf(stream,"%d;%d;\n",temp->obj->owner->pn,temp->obj->pn); 
 	}
 }
 
 void PrintPresentationsTable(int sotrorder){
-	int i,j;
+	int i,j; 
 	int tab[];
 	Element  * temp; 
-	i=0; 
-	tab = malloc(listofpresenters.lenght*sizeof(int)); 
-	tabPn = malloc(listofpresenters.lenght*sizeof(Presenter *));
-	temp = listofpresenters.head; 
-	while(temp!=NULL){
-		tabPn[i]=temp->obj; 
-		temp = temp->next;
-	}
+
 	
-	for(i=0; i<PresenterCounter; i++)tab[i]=i;
+	tab = malloc(listofpresentations.lenght*sizeof(int)); 
+	tabPn = malloc(listofpresentations.lenght*sizeof(Presentations *));
+	temp = listofpresentations.head; 
+	for(i=0;temp=listofpresentations.head;temp!=NULL;tabPn[i]=temp->obj,temp=temp->next,i++);
+	j = i+1;
+	for(i=0; i<j;tab[i]=i,i++); 
 	
-	if(sortorder==1)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterName);
-	if(sortorder==2)qsort(tab,PresenterCounter,sizeof(int),ComparePresenterSurname);
+	if(sortorder==1)qsort(tab,j,sizeof(int),ComparePresenterName);
+	if(sortorder==2)qsort(tab,j,sizeof(int),ComparePresenterSurname);
+	
+	for(i=0; i<j; i++)PrintPresenterLine(tabPr[tab[i]],stdout); 
+
+}
+
+void PrintPresentationLine(Presentation *any, FILE * stream){
+	fprintf(stream,"%4d|%30s|",any->pn, any->name); 
+	if(any->type=='0')fprintf(stream,"ustna |"); 
+	if(any->type=='1')fprintf(stream,"plakat|"); 
+	fprintf(stream,"%4d|\n",any->owner->pn); 
 }
 
 int ComparePresenterName (const void * a, const void * b){
@@ -321,8 +351,8 @@ int ComparePresenterPresentations (const void * a, const void * b){
 
 	int x = *(int*)a;
 	int y = *(int*)b;
-	if(tabPr[x].nofpresentations>tabPr[y].nofpresentations) return 1; 
-	else if (tabPr[x].nofpresentations==tabPr[y].nofpresentations) return 0; 
+	if(tabPr[x].presentations.lenght>tabPr[y].presentations.lenght) return 1; 
+	else if (tabPr[x].presentations.lenght==tabPr[y].presentations.lenght) return 0; 
 	else return 0; 
 }
 

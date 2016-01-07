@@ -28,7 +28,7 @@ int Exit();
 int ReadFromStd();
 void Msg(msgtype, int); 
 void PrintFileHeader(); 
-void PrintPresenterHeader(void *); 
-void PrintPresentationHeader(void *);
-void PrintCatHeader(void *);
-#endif
+void PrintPresenterHeader(FILE *); 
+void PrintPresentationHeader(FILE *);
+void PrintCatHeader(FILE *);
+#endif 
