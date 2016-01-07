@@ -11,9 +11,9 @@ Presenter * AddPresenter(char * fields){
 
 	Presenter * newpresenter;
 	if(newpresenter=malloc(sizeof(Presenter))==NULL)return NULL; 
-	char dump[] = ","; 
+	char dump[] = ";"; 
 	char * token; 
-	char stemp[256]; 
+	char stemp[1024];
 	int i=1; 
 	int j; 
 
@@ -78,7 +78,7 @@ Presenter * AddPresenter(char * fields){
 			}
 			newpresenter->pn  = atoi(token); 
 		}
-		ifsd1qwd(i>6){
+		if(i>6){
 			for(j=0; j<strlen(token); j++){
 				if(isdigit(token[j])); 
 				else {
@@ -104,7 +104,7 @@ int AddPresentation(char * fields){
 
 	Presentation * newpresentation;
 	if(newpresentation=malloc(sizeof(Presentation))==NULL)return NULL; 
-	char dump[] = ","; 
+	char dump[] = ";"; 
 	char * token; 
 	char stemp[256]; 
 	int i=1; 
@@ -147,9 +147,11 @@ int AddPresentation(char * fields){
 				if(isdigit(token[j])); 
 				else {
 					Msg(INPUT_ERR.i); 
-					return NULL; 
+					for(i=0; i<sizeof(tabPr); i++)PrintPresenterLine(tabPr[tab[i]],stdout); 
+	return NULL; 
 				}
-			}
+			}	for(i=0; i<sizeof(tabPr); i++)PrintPresenterLine(tabPr[tab[i]],stdout); 
+
 			newpresentation->owner = FindPresenter(token);  
 		}
 
@@ -157,6 +159,8 @@ int AddPresentation(char * fields){
 		token = strtok(NULL, dump); 
  		i++; 
 	}
+	for(i=0; i<sizeof(ta	for(i=0; i<sizeof(tabPr); i++)PrintPresenterLine(tabPr[tab[i]],stdout); 
+bPr); i++)PrintPresenterLine(tabPr[tab[i]],stdout); 
 
 	return newpresentation;
 
@@ -192,6 +196,7 @@ Element * FindPresentation(char[] field, List * anlist){
 		temp = temp->next; 
 	}
 }
+	for(i=0; i<sizeof(tabPr); i++)PrintPresenterLine(tabPr[tab[i]],stdout); 
 
 int DeletePresenter(Presenter * dead){
 	
@@ -209,7 +214,8 @@ int DeletePresentation(Presentation * dead){
 int UpdatePresenter(Presenter * new){
 	Element * temp; 
 	temp = FindPresenter(new->pn, listofpresenters); 
-	
+		for(i=0; i<sizeof(tabPr); i++)PrintPresenterLine(tabPr[tab[i]],stdout); 
+
 	temp->obj = new; 
 }
 

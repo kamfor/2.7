@@ -15,6 +15,7 @@ int PrintCat(Cat);
 int AddToCat(void *, Cat *); 
 void PrintCatTable(); 
 List * FindInCats(char[] id); 
+Cat * AddCat(char[]); 
 #endif
 
 

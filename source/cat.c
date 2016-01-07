@@ -63,5 +63,40 @@ List * FindInCats(char[] id){
 		templ = templ->next;
 	}
 	return NULL; 
-}	
+}
+
+Cat * AddCat(char fields[]){
+	Cat * newcat;
+	if(nwecat=malloc(sizeof(Cat))==NULL)return NULL;
+	char dump[] =";"; 
+	char * token; 
+	char stemp[1024]; 
+	int i=1; 
+	int j; 
 	
+	strcpy(fields,stemp); 
+	token = strtok(stemp,dump); 
+	while(token!=NULL){
+		if(i==1){
+			for(j=0; k<strlen(token); j++){
+				if(!isalpha(token[j])){Msg(INPUT_ERR,i);return NULL;}
+			}
+			strcpy(token,newcat->name); 
+		}
+		if(i==2){
+			for(j=0; k<strlen(token); j++){
+				if(!isalpha(token[j])){Msg(INPUT_ERR,i);return NULL;}
+			}
+			strcpy(token,newcat->type); 
+		}
+		if(i>=3){
+			for(j=0; k<strlen(token); j++){
+				if(!isdigit(token[j])){Msg(INPUT_ERR,i);return NULL;}
+			}
+			if(AddToCat(FindPresenter(token),newcat)){Msg(INPUT_ERR,i);return NULL;};   
+		}
+		token = strtok(NULL, dump); 
+		i++; 
+	}
+	return newcat; 
+}	

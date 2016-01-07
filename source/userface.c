@@ -101,7 +101,11 @@ void Msg(msgtype message, int position){
 	printf("Np: Jan;Kowalski;Uniwersytet 3-go wieku;1;0; \n"); 
 	break; 
 
-	case PRESENTER_ADD_SUCCES:
+	case PRESENTER_ADD_SUCCES:	for(i=0; i<sizeof(tabPr); i++)PrintPresenterLine(tabPr[tab[i]],stdout); 
+
+
+
+
 	printf("Pomyslnie dodano prezentera do bazy danych \n"); 
 	break; 
 
@@ -123,7 +127,7 @@ void Msg(msgtype message, int position){
 	break; 
 
 	case INPUT_ERR:
-	printf("Blad danych wejsciowych \n"); 
+	printf("Blad danych wejsciowych na pozycji %d \n",position); 
 	break; 
 	}
 }
