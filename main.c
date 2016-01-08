@@ -7,15 +7,13 @@
  
 int main(){
 
-	int control=1; 
-	int i; 
-	int sortorder = 1; 
-
-	ClearScreen(); 
+	Initialize(); 
+	while(StartInteraction()); 
+	exit(); 
+	
 	
 	while(control){ 
 
-		PrintMenu(); 
 		
 		do{
 			Msg(CONTROL_PROMPT); 

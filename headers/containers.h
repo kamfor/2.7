@@ -31,13 +31,19 @@ int DeletePresenter(Presenter *);
 int DeletePresentation(Presentation *); 
 int UpdatePresenter(Presenter *); 
 int UpdatePresentation(Presentation *); 
-void PrintPresenterFile(void *);
+void PrintPresenterFile(FILE *);
 void PrintSortedPresenterTable(int);
 void PrintPresenterLine(Presenter *,FILE *);   
-void PrintPresentationFile(void *);
+void PrintPresentationFile(FILE *);
 void PrintSortedPresentationTable(int);
 void PrintPresentationLine(Presentation *,FILE *);   
 /*compare function*/ 
-
-
+int ComparePresenterName(const void *, const void *); 
+int ComparePresenterSurname(const void *, const void *); 
+int ComparePresenterAffiliation(const void *, const void *); 
+int ComparePresenterGen(const void *, const void *); 
+int ComparePresenterPayment(const void *, const void *);
+int ComparePresenterPresentations(const void *, const void *);  
+int ComparePresentationName(const void *, const void *); 
+int ComparePresentationType(const void *, const void *); 
 #endif

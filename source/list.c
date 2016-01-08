@@ -59,6 +59,5 @@ int dellist(List * anlist){
 	}
 	
 	free(anlist);
-	//dekonstruktory i rekurencyjne usuwanie dowiazan  
 }
 

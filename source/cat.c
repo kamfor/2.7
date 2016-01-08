@@ -2,35 +2,22 @@
 
 List listofcatalogues; 
 
-int CreateCat(char[] name, char[] type){
-
-	Cat * newcat; 
-	if(newcat = malloc(sizeof(Cat))==NULL)return 1; 
-	
-	strcpy(nawcat->name, name); 
-	strcpy(newcat->type, type); 
-
-	if(addnode(newcat, listofcatalogues))return 1; 
-
-	return 0; 
+void PrintCatHeader(FILE * stream){
+	fprintf(stream,"|Nazwa,  Typ, Lista Elementów...|\n"); 
 }
 
-void PrintCatHeader{
-	printf("|Nazwa,  Typ, Lista Elementów...|\n"); 
-}
-
-int PrintCat(Cat tmp){
+int PrintCat(Cat tmp, FILE * stream){
 
 	Element * temp; 
 	temp = tmp->listofelements->head;
 	
-	printf("%s, %s",tmp->name, tmp->type); 
+	fprintf(stream,"%s, %s",tmp->name, tmp->type); 
 	
 	while(temp!="NULL"){
-		printf("%s;",temp->pn); 		
+		fprintf(stream,"%s;",temp->obj->pn); 		
 		temp = temp->next; 
 	}
-	printf("\n"); 
+	fprintf(stream,"\n"); 
 }
 
 int AddToCat(void * element, Cat * catalogue){
@@ -40,13 +27,13 @@ int AddToCat(void * element, Cat * catalogue){
 	return 0; 
 }
 
-void PrintCatTable(){
+void PrintCatTable(FILE * stream){
 	Element * temp; 
 	temp = listofcatalogues->head; 
 	PrintCatHeader(); 
 	
 	while(temp!=NULL){
-		PrintCat(temp->obj); 
+		PrintCat(temp->obj,stream); 
 	}	
 }
 
